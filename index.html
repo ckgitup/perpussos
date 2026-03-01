@@ -127,7 +127,7 @@
         <!-- Filter & Search Dialektis -->
         <div class="arch-card rounded-[3.5rem] p-6 mb-24 sticky top-10 z-50 flex flex-col xl:flex-row items-center gap-8 border-none shadow-4xl">
             <div class="relative w-full xl:flex-1 group">
-                <i class="fa-solid fa-magnifying-glass absolute left-8 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-scholastic-gold transition-colors"></i>
+                <i class="fa-solid fa-magnifying-glass absolute left-8 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-scholastic-gold transition-colors text-xl"></i>
                 <input type="text" id="search-input" oninput="handleSearch()" placeholder="Cari materi, konsep, atau abstraksi..." class="w-full pl-18 pr-8 py-4 bg-transparent border-none focus:ring-0 text-scholastic-midnight dark:text-white font-semibold text-xl placeholder-slate-400/50">
             </div>
             <div class="flex items-center gap-4 overflow-x-auto w-full xl:w-auto pb-2 xl:pb-0 no-scrollbar px-2">
@@ -217,7 +217,8 @@
     <div id="toast-box"></div>
 
     <script type="module">
-        const SPREADSHEET_API_URL = "https://script.google.com/macros/s/AKfycbwZyqGF1gOuLmIL4PUEX8wxhJlQNecoujmBDy0MC8m3nNLETi_IwyE99inXjiZk3LwlPA/exec";
+        // KONFIGURASI API
+        const SPREADSHEET_API_URL = "https://script.google.com/macros/s/AKfycbxYykLRE56FNGLKdzE1HhqCXkL9MFsfl3Q_CHofnrOxkfreL73BDoP97fic6ZSk0zvVKQ/exec";
 
         window.state = { modules: [], search: '', filter: 'all', isAdmin: false, loading: true };
 
@@ -304,6 +305,7 @@
                 document.getElementById('i-title').value = m.title;
                 document.getElementById('i-desc').value = m.desc;
                 document.getElementById('i-status').value = m.status;
+                document.getElementById('i-kd').value = m.kd || '';
                 document.getElementById('i-link').value = m.link;
             }
         };
@@ -312,7 +314,7 @@
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
             btn.disabled = true;
-            btn.innerText = "SINKRONISASI...";
+            btn.innerText = "SINKRONISASI SEDANG BERLANGSUNG...";
 
             const payload = {
                 action: 'upsert',
@@ -328,17 +330,19 @@
             };
 
             try {
+                // Menggunakan mode no-cors untuk berinteraksi dengan Google Apps Script
                 await fetch(SPREADSHEET_API_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     cache: 'no-cache',
-                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-                notify("Sinkronisasi Berhasil.");
-                setTimeout(() => location.reload(), 2000);
+                
+                notify("Narasi Berhasil Disinkronkan.");
+                // Delay reload untuk memberikan waktu Apps Script memproses data
+                setTimeout(() => { location.reload(); }, 2500);
             } catch (err) {
-                notify("Gagal Terhubung.");
+                notify("Kegagalan Transmisi.");
                 btn.disabled = false;
                 btn.innerText = "SIMPAN PERUBAHAN";
             }
@@ -383,15 +387,15 @@
                 grid.innerHTML += `
                     <div class="group arch-card rounded-[3.5rem] p-16 flex flex-col h-full ${!isPublished ? 'opacity-40 grayscale' : ''}" style="animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards ${i*0.05}s">
                         <div class="flex justify-between items-center mb-14">
-                            <span class="px-8 py-3 bg-scholastic-midnight dark:bg-slate-900 text-[10px] font-black text-white rounded-2xl tracking-[0.3em] uppercase shadow-sm">KELAS ${m.class}</span>
+                            <span class="px-8 py-3 bg-scholastic-midnight dark:bg-slate-900 text-[10px] font-black text-white rounded-2xl tracking-[0.3em] uppercase">KELAS ${m.class}</span>
                             ${state.isAdmin ? `<button onclick="openEditor('${id}')" class="text-slate-400 hover:text-scholastic-gold transition-colors"><i class="fa-solid fa-marker text-xl"></i></button>` : `<i class="fa-solid fa-graduation-cap text-slate-200"></i>`}
                         </div>
                         <div class="mb-10 flex items-center gap-4">
-                            <span class="px-5 py-2 bg-scholastic-gold/10 text-scholastic-gold text-[9px] font-black uppercase rounded-full shadow-sm tracking-[0.2em] border border-scholastic-gold/10">${m.kategori || 'Narasi'}</span>
+                            <span class="px-5 py-2 bg-scholastic-gold/10 text-scholastic-gold text-[9px] font-black uppercase rounded-full shadow-sm tracking-[0.2em] border border-scholastic-gold/20">${m.kategori || 'Narasi'}</span>
                             ${state.isAdmin && !isPublished ? '<span class="text-[9px] font-black text-scholastic-crimson uppercase tracking-widest bg-scholastic-crimson/10 px-4 py-2 rounded-full shadow-sm">DRAFT</span>' : ''}
                             <span class="text-[12px] font-bold text-scholastic-clay dark:text-slate-400 uppercase opacity-60 ml-auto">${m.views || 0} <i class="fa-solid fa-bolt-lightning ml-2 text-[10px]"></i></span>
                         </div>
-                        <h3 class="font-serif font-black text-5xl text-scholastic-midnight dark:text-white mb-10 leading-[1.05] group-hover:text-scholastic-gold transition-colors duration-500 tracking-tighter tracking-tight">${m.title}</h3>
+                        <h3 class="font-serif font-black text-5xl text-scholastic-midnight dark:text-white mb-10 leading-[1.05] group-hover:text-scholastic-gold transition-colors duration-500 tracking-tighter tracking-tight tracking-tight">${m.title}</h3>
                         <p class="text-xl text-scholastic-clay dark:text-slate-400 leading-relaxed line-clamp-4 mb-16 font-light italic opacity-90">"${m.desc}"</p>
                         <div class="mt-auto pt-12 border-t border-slate-100 dark:border-slate-900 flex justify-between items-center">
                             <span class="text-[14px] font-black text-slate-200 dark:text-slate-800 tracking-[0.4em] uppercase">${m.kd || 'INDX'}</span>
