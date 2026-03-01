@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sosiologi Digital | Ruang Dialektika & Imajinasi</title>
+    <title>Lokus Dialektika | Arsitektur Imajinasi Sosial</title>
     
-    <!-- Framework & Font Assets -->
+    <!-- Integrasi Visual & Tipografi Otoritatif -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -20,22 +20,14 @@
                         serif: ['"Playfair Display"', 'serif'],
                     },
                     colors: {
-                        brand: {
-                            indigo: '#6366f1',
-                            sky: '#0ea5e9',
-                            rose: '#f43f5e',
-                            slate: '#0f172a'
+                        scholastic: {
+                            base: '#fdfdfd',
+                            midnight: '#020617',
+                            ink: '#0f172a',
+                            gold: '#d97706', // Deep Amber
+                            clay: '#475569',
+                            crimson: '#9f1239'
                         }
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.8s ease-out forwards',
-                        'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                        'float': 'float 5s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
-                        slideUp: { '0%': { opacity: '0', transform: 'translateY(40px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
-                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-15px)' } }
                     }
                 }
             }
@@ -43,473 +35,353 @@
     </script>
 
     <style>
+        /* Desain Scrollbar Minimalis */
         ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #d97706; border-radius: 2px; }
         
         body { 
-            background-color: #f8fafc; 
-            color: #1e293b;
-            transition: all 0.4s ease;
-            overflow-x: hidden;
+            background-color: #fdfdfd; 
+            color: #0f172a;
+            transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .dark body { background-color: #020617; color: #cbd5e1; }
 
-        .glass {
-            background: rgba(255, 255, 255, 0.75);
+        /* Arsitektur Glassmorphism & Card */
+        .arch-card {
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(203, 213, 225, 0.4);
+            box-shadow: 0 4px 30px -10px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .dark .glass {
+        .dark .arch-card {
             background: rgba(15, 23, 42, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.3);
+        }
+        .arch-card:hover {
+            transform: translateY(-8px);
+            border-color: #d97706;
         }
 
-        .text-gradient {
-            background: linear-gradient(135deg, #6366f1 0%, #0ea5e9 100%);
+        .text-accent {
+            background: linear-gradient(135deg, #d97706 0%, #92400e 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        #toast-box { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 1000; }
+        /* Skeleton Shimmer */
+        .shimmer {
+            background: linear-gradient(90deg, transparent 25%, rgba(217, 119, 6, 0.05) 50%, transparent 75%);
+            background-size: 200% 100%;
+            animation: shimmerEffect 2s infinite;
+        }
+        @keyframes shimmerEffect { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="font-sans antialiased selection:bg-brand-indigo selection:text-white">
+<body class="font-sans antialiased selection:bg-scholastic-gold selection:text-white">
 
-    <!-- Ambient Background Effects -->
-    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none opacity-50 dark:opacity-30">
-        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-indigo/10 blur-[120px] rounded-full"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-brand-sky/10 blur-[120px] rounded-full"></div>
+    <!-- Layer Estetika Ambient -->
+    <div class="fixed inset-0 -z-10 pointer-events-none opacity-40">
+        <div class="absolute top-[-5%] left-[-5%] w-[40vw] h-[40vw] bg-scholastic-gold/5 blur-[120px] rounded-full"></div>
+        <div class="absolute bottom-[-5%] right-[-5%] w-[40vw] h-[40vw] bg-scholastic-midnight/5 blur-[120px] rounded-full"></div>
     </div>
 
-    <!-- Sistem Kontrol Terapung -->
-    <nav class="fixed top-6 right-6 z-[200] flex flex-col gap-3">
-        <button onclick="toggleDarkMode()" title="Mode Gelap/Cahaya" class="w-12 h-12 glass rounded-2xl flex items-center justify-center text-slate-500 hover:text-brand-indigo transition-all shadow-xl hover:scale-110 active:scale-95">
-            <i id="theme-icon" class="fa-solid fa-moon"></i>
+    <!-- Navigasi Otoritas -->
+    <nav class="fixed top-10 right-10 z-[200] flex flex-col gap-4">
+        <button onclick="toggleDarkMode()" title="Ubah Dimensi Cahaya" class="w-14 h-14 arch-card rounded-2xl flex items-center justify-center text-scholastic-ink dark:text-scholastic-gold hover:rotate-12 transition-all shadow-xl">
+            <i id="theme-ico" class="fa-solid fa-moon text-xl"></i>
         </button>
-        <button onclick="toggleAdminPanel()" id="admin-trigger" title="Otoritas Kurator" class="w-12 h-12 glass rounded-2xl flex items-center justify-center text-slate-400 hover:text-brand-indigo transition-all shadow-xl hover:scale-110 active:scale-95">
-            <i class="fa-solid fa-shield-halved"></i>
+        <button onclick="openOtoritas()" id="admin-trigger" title="Gerbang Kurator" class="w-14 h-14 arch-card rounded-2xl flex items-center justify-center text-slate-400 hover:text-scholastic-gold transition-all shadow-xl">
+            <i class="fa-solid fa-fingerprint text-xl"></i>
         </button>
-        <button onclick="openEditor()" id="add-btn" title="Tambah Materi Baru" class="hidden w-12 h-12 bg-brand-indigo text-white rounded-2xl flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all animate-bounce">
-            <i class="fa-solid fa-plus text-lg"></i>
+        <button onclick="triggerEditor()" id="add-btn" class="hidden w-14 h-14 bg-scholastic-gold text-white rounded-2xl flex items-center justify-center shadow-3xl hover:scale-110 active:scale-95 transition-all">
+            <i class="fa-solid fa-plus text-2xl"></i>
         </button>
     </nav>
 
-    <!-- Header Epistemologis -->
-    <header class="max-w-7xl mx-auto px-6 pt-24 pb-12 animate-fade-in">
-        <div class="flex flex-col lg:flex-row justify-between items-end gap-10">
-            <div class="max-w-3xl">
-                <div class="inline-flex items-center gap-2 bg-brand-indigo/10 text-brand-indigo px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-8 border border-brand-indigo/20 shadow-sm">
-                    <span class="w-1.5 h-1.5 rounded-full bg-brand-indigo animate-pulse"></span>
-                    Digital Sociology Repository 2026
-                </div>
-                <h1 class="text-6xl md:text-8xl font-serif font-extrabold text-slate-900 dark:text-white leading-[1.05] mb-8 tracking-tight">
-                    Membaca <br>
-                    <span class="text-gradient italic">Dialektika Sosial.</span>
-                </h1>
-                <p class="text-xl text-slate-500 dark:text-slate-400 font-light border-l-4 border-brand-indigo/30 pl-8 leading-relaxed italic max-w-2xl">
-                    "Sosiologi bukan sekadar menghafal struktur, melainkan seni membedah keteraturan dan perubahan di jantung masyarakat siber."
-                </p>
+    <!-- Manifesto Header -->
+    <header class="max-w-7xl mx-auto px-10 pt-40 pb-20">
+        <div class="max-w-4xl">
+            <div class="flex items-center gap-4 mb-10 overflow-hidden">
+                <span class="h-[1px] w-12 bg-scholastic-gold shrink-0"></span>
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] text-scholastic-gold">Paradigma Digital 2026</span>
             </div>
-            <div class="hidden lg:block animate-float">
-                <div class="w-32 h-32 glass rounded-[2.5rem] flex items-center justify-center border-brand-indigo/20 shadow-2xl relative group">
-                    <div class="absolute inset-0 bg-brand-indigo/5 rounded-[2.5rem] scale-110 blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                    <i class="fa-solid fa-brain text-5xl text-brand-indigo relative z-10"></i>
-                </div>
-            </div>
+            <h1 class="text-7xl md:text-[8.5rem] font-serif font-black text-scholastic-midnight dark:text-white leading-[0.85] mb-12 tracking-tighter">
+                Arsitektur <br>
+                <span class="text-accent italic">Imajinasi.</span>
+            </h1>
+            <p class="text-2xl md:text-3xl text-scholastic-clay dark:text-slate-400 font-light max-w-3xl leading-relaxed italic">
+                Bukan sekadar arsip, melainkan lokus untuk membedah <span class="text-scholastic-midnight dark:text-white font-semibold">struktur</span>, memetakan <span class="text-scholastic-midnight dark:text-white font-semibold">konflik</span>, dan merayakan <span class="text-scholastic-midnight dark:text-white font-semibold">agensi</span>.
+            </p>
         </div>
     </header>
 
     <!-- Dashboard Eksplorasi -->
-    <main class="max-w-7xl mx-auto px-6 pb-40">
+    <main class="max-w-7xl mx-auto px-10 pb-60">
         
-        <!-- Bar Kontrol Interaktif -->
-        <div class="glass rounded-[2.5rem] p-4 mb-16 sticky top-6 z-50 flex flex-col lg:flex-row items-center gap-6 border border-white/40 shadow-2xl backdrop-blur-2xl">
-            <div class="relative w-full lg:flex-1 group">
-                <i class="fa-solid fa-magnifying-glass absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brand-indigo transition-colors text-lg"></i>
-                <input type="text" id="search-input" oninput="handleSearch()" placeholder="Bedah materi, KD, atau topik kritis..." class="w-full pl-14 pr-6 py-4 bg-transparent border-none focus:ring-0 text-slate-800 dark:text-white font-medium text-lg placeholder-slate-400/60">
+        <!-- Filter & Search Dialektis -->
+        <div class="arch-card rounded-[3.5rem] p-6 mb-24 sticky top-10 z-50 flex flex-col xl:flex-row items-center gap-8 border-none shadow-4xl">
+            <div class="relative w-full xl:flex-1 group">
+                <i class="fa-solid fa-magnifying-glass absolute left-8 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-scholastic-gold transition-colors"></i>
+                <input type="text" id="search-input" oninput="handleSearch()" placeholder="Cari materi, konsep, atau abstraksi..." class="w-full pl-18 pr-8 py-4 bg-transparent border-none focus:ring-0 text-scholastic-midnight dark:text-white font-semibold text-xl placeholder-slate-400/50">
             </div>
-            <div class="flex items-center gap-3 overflow-x-auto w-full lg:w-auto pb-2 lg:pb-0 no-scrollbar px-1">
-                <button onclick="setTab('all')" id="tab-all" class="tab-btn active px-8 py-3.5 rounded-2xl text-xs font-black uppercase tracking-widest transition-all bg-slate-900 dark:bg-brand-indigo text-white shadow-lg">Semua</button>
-                <button onclick="setTab('X')" id="tab-X" class="tab-btn px-8 py-3.5 rounded-2xl text-xs font-black uppercase tracking-widest transition-all glass text-slate-500 hover:text-brand-indigo">Kelas X</button>
-                <button onclick="setTab('XI')" id="tab-XI" class="tab-btn px-8 py-3.5 rounded-2xl text-xs font-black uppercase tracking-widest transition-all glass text-slate-500 hover:text-brand-indigo">Kelas XI</button>
-                <button onclick="setTab('XII')" id="tab-XII" class="tab-btn px-8 py-3.5 rounded-2xl text-xs font-black uppercase tracking-widest transition-all glass text-slate-500 hover:text-brand-indigo">Kelas XII</button>
-                <button onclick="toggleFavsOnly()" id="fav-btn" class="w-14 h-14 flex items-center justify-center rounded-2xl glass text-brand-rose hover:bg-brand-rose hover:text-white transition-all duration-500">
-                    <i class="fa-solid fa-heart text-xl"></i>
-                </button>
+            <div class="flex items-center gap-4 overflow-x-auto w-full xl:w-auto pb-2 xl:pb-0 no-scrollbar px-2">
+                <button onclick="applyFilter('all')" id="f-all" class="tab-btn active px-10 py-4 rounded-3xl text-[10px] font-black uppercase tracking-widest transition-all bg-scholastic-midnight dark:bg-scholastic-gold text-white dark:text-scholastic-midnight shadow-2xl">Semua</button>
+                <button onclick="applyFilter('X')" id="f-X" class="tab-btn px-10 py-4 rounded-3xl text-[10px] font-black uppercase tracking-widest transition-all arch-card text-scholastic-clay border-none hover:text-scholastic-gold">Kelas X</button>
+                <button onclick="applyFilter('XI')" id="f-XI" class="tab-btn px-10 py-4 rounded-3xl text-[10px] font-black uppercase tracking-widest transition-all arch-card text-scholastic-clay border-none hover:text-scholastic-gold">Kelas XI</button>
+                <button onclick="applyFilter('XII')" id="f-XII" class="tab-btn px-10 py-4 rounded-3xl text-[10px] font-black uppercase tracking-widest transition-all arch-card text-scholastic-clay border-none hover:text-scholastic-gold">Kelas XII</button>
             </div>
         </div>
 
-        <!-- Grid Materi Utama -->
-        <div id="grid-content" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
-            <!-- Data render secara reaktif -->
+        <!-- Content Grid -->
+        <div id="grid-content" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-14">
+            <!-- Data render secara dinamis -->
         </div>
 
-        <!-- State Data Kosong -->
-        <div id="empty-ui" class="hidden py-40 text-center animate-fade-in">
-            <div class="w-24 h-24 bg-slate-100 dark:bg-slate-800 rounded-[2rem] flex items-center justify-center mx-auto mb-8 text-slate-300">
-                <i class="fa-solid fa-box-open text-4xl"></i>
-            </div>
-            <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-2 tracking-tight">Hampa di Ruang Siber</h3>
-            <p class="text-slate-500 dark:text-slate-400 font-light max-w-sm mx-auto">Materi yang Anda cari belum tersedia dalam pangkalan data dialektika kami.</p>
+        <div id="no-data" class="hidden py-60 text-center">
+            <h3 class="text-3xl font-black text-scholastic-midnight dark:text-white mb-4">Hening Intelektual</h3>
+            <p class="text-xl text-scholastic-clay dark:text-slate-400 font-light">Narasi yang Anda cari belum disintesis dalam pangkalan data kami.</p>
         </div>
     </main>
 
-    <!-- MODAL SYSTEM -->
-    <div id="modal-overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[300] hidden items-center justify-center p-6 transition-all duration-500 opacity-0">
-        
-        <!-- Auth Admin Modal -->
-        <div id="modal-auth" class="hidden glass w-full max-w-sm rounded-[3rem] p-12 text-center border-white/20 shadow-3xl">
-            <div class="w-20 h-20 bg-brand-indigo/10 rounded-[1.5rem] flex items-center justify-center text-brand-indigo mx-auto mb-8 border border-brand-indigo/20 shadow-inner">
-                <i class="fa-solid fa-fingerprint text-3xl"></i>
+    <!-- Footer Institusional -->
+    <footer class="max-w-7xl mx-auto px-10 py-20 border-t border-slate-100 dark:border-slate-900 flex flex-col lg:flex-row justify-between items-center gap-10 text-[10px] font-black uppercase tracking-[0.4em] text-scholastic-clay">
+        <div class="flex items-center gap-6">
+            <div class="w-14 h-14 rounded-2xl bg-scholastic-midnight dark:bg-scholastic-gold flex items-center justify-center text-white dark:text-scholastic-midnight text-xl shadow-2xl">S</div>
+            <div class="flex flex-col gap-1">
+                <span class="text-scholastic-midnight dark:text-white">sosiologi.eu.org</span>
+                <span class="opacity-50">Epistemologi Masa Depan &copy; 2026</span>
             </div>
-            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">Otoritas Kurator</h3>
-            <p class="text-sm text-slate-400 mb-10 font-light">Masukkan kunci akses dialektika.</p>
-            <input type="password" id="auth-field" class="w-full bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 text-center text-3xl tracking-[0.6em] mb-8 outline-none focus:ring-2 ring-brand-indigo dark:text-white shadow-xl" placeholder="••••">
-            <div class="flex gap-4">
-                <button onclick="closeModals()" class="flex-1 py-5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-3xl font-black text-[10px] uppercase tracking-widest hover:bg-slate-200 transition-all">Batal</button>
-                <button onclick="verifyAdmin()" class="flex-1 py-5 bg-brand-indigo text-white rounded-3xl font-black text-[10px] uppercase tracking-widest shadow-xl shadow-indigo-500/30 hover:scale-105 active:scale-95 transition-all">Masuk</button>
+        </div>
+        <div class="flex gap-12">
+            <a href="#" class="hover:text-scholastic-gold transition-all">Strukturasi Digital</a>
+            <a href="#" class="hover:text-scholastic-gold transition-all">Dialektika Modern</a>
+        </div>
+    </footer>
+
+    <!-- SISTEM MODAL (Security & Orchestration) -->
+    <div id="modal-overlay" class="fixed inset-0 bg-scholastic-midnight/90 backdrop-blur-2xl z-[300] hidden items-center justify-center p-10 transition-all duration-500 opacity-0">
+        
+        <!-- Auth -->
+        <div id="modal-auth" class="hidden arch-card w-full max-w-md rounded-[3.5rem] p-16 text-center border-white/10 shadow-5xl">
+            <h3 class="text-3xl font-black text-scholastic-midnight dark:text-white mb-4">Otoritas Kurator</h3>
+            <p class="text-sm text-slate-400 mb-12 italic">"Kekuasaan atas narasi menuntut kunci intelektual."</p>
+            <input type="password" id="pass-field" class="w-full bg-white/40 dark:bg-scholastic-midnight/50 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 text-center text-4xl tracking-[0.8em] mb-12 outline-none focus:ring-4 ring-scholastic-gold/30 dark:text-white" placeholder="••••">
+            <div class="flex gap-5">
+                <button onclick="closeModals()" class="flex-1 py-5 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-3xl font-black text-[10px] uppercase">Batal</button>
+                <button onclick="doAuth()" class="flex-1 py-5 bg-scholastic-gold text-white rounded-3xl font-black text-[10px] uppercase shadow-xl hover:scale-105 active:scale-95 transition-all">Masuk</button>
             </div>
         </div>
 
-        <!-- Editor Form Modal -->
-        <div id="modal-editor" class="hidden glass w-full max-w-2xl rounded-[3.5rem] p-12 shadow-3xl relative overflow-y-auto max-h-[90vh] border-white/20">
-            <div class="flex justify-between items-center mb-10">
+        <!-- Editor -->
+        <div id="modal-editor" class="hidden arch-card w-full max-w-4xl rounded-[4rem] p-16 relative overflow-y-auto max-h-[85vh] border-white/10 shadow-5xl">
+            <div class="flex justify-between items-start mb-14">
                 <div>
-                    <h3 id="editor-title" class="text-4xl font-serif font-extrabold text-slate-900 dark:text-white tracking-tight">Editor Materi</h3>
-                    <p class="text-sm text-slate-400 mt-1 uppercase tracking-widest font-black text-[9px]">Sinkronisasi Cloud Aktif</p>
+                    <h3 id="form-header" class="text-5xl font-serif font-black text-scholastic-midnight dark:text-white tracking-tighter">Editor Narasi</h3>
+                    <p class="text-[10px] text-scholastic-gold mt-3 uppercase tracking-[0.5em] font-black italic">Cloud Synthesis Engine</p>
                 </div>
-                <button onclick="closeModals()" class="w-12 h-12 flex items-center justify-center rounded-2xl bg-slate-50 dark:bg-slate-900 text-slate-400 hover:text-brand-rose transition-all shadow-sm"><i class="fa-solid fa-xmark text-2xl"></i></button>
+                <button onclick="closeModals()" class="w-14 h-14 flex items-center justify-center rounded-3xl bg-slate-50 dark:bg-slate-900 text-slate-400 hover:text-scholastic-crimson transition-all shadow-sm"><i class="fa-solid fa-xmark text-3xl"></i></button>
             </div>
-            <form id="editor-form" class="space-y-8">
-                <input type="hidden" id="entry-id">
-                <div class="grid grid-cols-2 gap-8">
+            <form id="main-form" class="space-y-12">
+                <input type="hidden" id="item-id">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
                     <div class="flex flex-col gap-3">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Tingkat Kelas</label>
-                        <select id="e-class" class="w-full bg-slate-50 dark:bg-slate-900 rounded-3xl p-5 text-sm dark:text-white border border-slate-200 dark:border-slate-800 focus:ring-2 ring-brand-indigo outline-none">
-                            <option value="X">Kelas X (Fondasi)</option>
-                            <option value="XI">Kelas XI (Struktur)</option>
-                            <option value="XII">Kelas XII (Perubahan)</option>
+                        <label class="text-[11px] font-black text-scholastic-clay uppercase tracking-[0.3em] ml-4">Tingkat Kelas</label>
+                        <select id="i-class" class="w-full bg-slate-50 dark:bg-slate-900 rounded-[2rem] p-6 text-sm dark:text-white border border-slate-200 dark:border-slate-800 focus:ring-4 ring-scholastic-gold/20 outline-none transition-all">
+                            <option value="X">Kelas X (Fondasi)</option><option value="XI">Kelas XI (Struktur)</option><option value="XII">Kelas XII (Perubahan)</option>
                         </select>
                     </div>
                     <div class="flex flex-col gap-3">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Kode KD</label>
-                        <input type="text" id="e-kd" class="w-full bg-slate-50 dark:bg-slate-900 rounded-3xl p-5 text-sm dark:text-white border border-slate-200 dark:border-slate-800 focus:ring-2 ring-brand-indigo outline-none" placeholder="3.1">
+                        <label class="text-[11px] font-black text-scholastic-clay uppercase tracking-[0.3em] ml-4">Kategori Narasi</label>
+                        <select id="i-kategori" class="w-full bg-slate-50 dark:bg-slate-900 rounded-[2rem] p-6 text-sm dark:text-white border border-slate-200 dark:border-slate-800 focus:ring-4 ring-scholastic-gold/20 outline-none transition-all">
+                            <option value="materi">Materi Inti</option><option value="literasi">Literasi Kritis</option><option value="pengayaan">Pengayaan</option><option value="serba serbi">Serba-serbi</option>
+                        </select>
                     </div>
                 </div>
                 <div class="flex flex-col gap-3">
-                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Judul Narasi</label>
-                    <input type="text" id="e-title" required class="w-full bg-slate-50 dark:bg-slate-900 rounded-3xl p-5 text-sm dark:text-white border border-slate-200 dark:border-slate-800 focus:ring-2 ring-brand-indigo outline-none">
+                    <label class="text-[11px] font-black text-scholastic-clay uppercase tracking-[0.3em] ml-4">Judul Narasi</label>
+                    <input type="text" id="i-title" required class="w-full bg-slate-50 dark:bg-slate-900 rounded-[2.5rem] p-6 text-sm dark:text-white border border-slate-200 dark:border-slate-800 focus:ring-4 ring-scholastic-gold/20 outline-none shadow-inner">
                 </div>
                 <div class="flex flex-col gap-3">
-                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Analisis Deskripsi</label>
-                    <textarea id="e-desc" rows="3" class="w-full bg-slate-50 dark:bg-slate-900 rounded-3xl p-6 text-sm dark:text-white border border-slate-200 dark:border-slate-800 focus:ring-2 ring-brand-indigo outline-none shadow-sm transition-all" placeholder="Esensi analisis materi ini..."></textarea>
+                    <label class="text-[11px] font-black text-scholastic-clay uppercase tracking-[0.3em] ml-4">Abstraksi Analisis</label>
+                    <textarea id="i-desc" rows="3" class="w-full bg-slate-50 dark:bg-slate-900 rounded-[2.5rem] p-8 text-sm dark:text-white border border-slate-200 dark:border-slate-800 focus:ring-4 ring-scholastic-gold/20 outline-none shadow-inner transition-all"></textarea>
                 </div>
-                <div class="grid grid-cols-2 gap-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
                     <div class="flex flex-col gap-3">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Konteks</label>
-                        <select id="e-context" class="w-full bg-slate-50 dark:bg-slate-900 rounded-3xl p-5 text-sm dark:text-white border border-slate-200 dark:border-slate-800 focus:ring-2 ring-brand-indigo outline-none">
-                            <option value="Fundamental">Fundamental</option>
-                            <option value="Kritis">Kritis</option>
-                            <option value="Trending">Trending</option>
-                            <option value="Studi Kasus">Studi Kasus</option>
+                        <label class="text-[11px] font-black text-scholastic-clay uppercase tracking-[0.3em] ml-4">Status Publikasi</label>
+                        <select id="i-status" class="w-full bg-slate-50 dark:bg-slate-900 rounded-[2rem] p-6 text-sm dark:text-white border border-slate-200 dark:border-slate-800 focus:ring-4 ring-scholastic-gold/20 outline-none">
+                            <option value="published">PUBLISHED (AKTIF)</option><option value="draft">DRAFT (TERSEMBUNYI)</option>
                         </select>
                     </div>
                     <div class="flex flex-col gap-3">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Waktu Baca</label>
-                        <input type="number" id="e-time" class="w-full bg-slate-50 dark:bg-slate-900 rounded-3xl p-5 text-sm dark:text-white border border-slate-200 dark:border-slate-800 focus:ring-2 ring-brand-indigo outline-none" value="15">
+                        <label class="text-[11px] font-black text-scholastic-clay uppercase tracking-[0.3em] ml-4">Kode KD / Indeks</label>
+                        <input type="text" id="i-kd" class="w-full bg-slate-50 dark:bg-slate-900 rounded-[2rem] p-6 text-sm dark:text-white border border-slate-200 dark:border-slate-800 focus:ring-4 ring-scholastic-gold/20 outline-none shadow-inner" placeholder="3.1">
                     </div>
                 </div>
                 <div class="flex flex-col gap-3">
-                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Tautan Digital (Drive)</label>
-                    <input type="url" id="e-link" required class="w-full bg-slate-50 dark:bg-slate-900 rounded-3xl p-5 text-sm dark:text-white border border-slate-200 dark:border-slate-800 focus:ring-2 ring-brand-indigo outline-none">
+                    <label class="text-[11px] font-black text-scholastic-clay uppercase tracking-[0.3em] ml-4">Tautan Dokumen (Google Drive)</label>
+                    <input type="url" id="i-link" required class="w-full bg-slate-50 dark:bg-slate-900 rounded-[2.5rem] p-6 text-sm dark:text-white border border-slate-200 dark:border-slate-800 focus:ring-4 ring-scholastic-gold/20 outline-none shadow-inner">
                 </div>
-                <button type="submit" class="w-full py-6 bg-brand-indigo text-white rounded-[2rem] font-black text-[11px] uppercase tracking-[0.3em] shadow-2xl shadow-indigo-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all mt-6">SINKRONKAN KE CLOUD</button>
+                <button type="submit" class="w-full py-8 bg-scholastic-midnight dark:bg-scholastic-gold text-white dark:text-scholastic-midnight rounded-[3rem] font-black text-[12px] uppercase tracking-[0.5em] shadow-5xl hover:scale-[1.02] active:scale-[0.98] transition-all">SINKRONKAN KE CLOUD</button>
             </form>
         </div>
     </div>
 
-    <!-- Container Notifikasi Toast -->
+    <!-- Toast Notification -->
     <div id="toast-box"></div>
 
-    <!-- Sistem Inti: Firebase & Logic -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        // KONFIGURASI API (Ganti dengan URL Google Apps Script Anda)
+        const SPREADSHEET_API_URL = "ISI_URL_WEB_APP_GOOGLE_APPS_SCRIPT_ANDA";
 
-        // Konfigurasi Cloud
-        const firebaseConfig = JSON.parse(__firebase_config);
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'sosiologi-paripurna-final-2026';
+        window.state = {
+            modules: [], search: '', filter: 'all', isAdmin: false, loading: true
+        };
 
-        // ARSIP PENGETAHUAN INTERNAL (Hardcoded untuk akses instan siswa)
+        // Arsip Intrinsik (14 Modul Utama)
         const INTERNAL_ARCHIVE = [
-            // KELAS X
-            { class: 'X', kd: '3.1', title: 'Sosiologi sebagai Ilmu Pengetahuan', desc: 'Konsep dasar, fungsi, peran sosiologi, dan realitas sosial sebagai objek kajian ilmiah.', link: 'https://drive.google.com/file/d/1WixnAjL6mTuX2FlzKbHswg3Y0JYwPddN/view?usp=drive_link', context: 'Fundamental', time: 10 },
-            { class: 'X', kd: '3.2', title: 'Hubungan Sosial', desc: 'Analisis interaksi sosial, tindakan sosial, dan dinamika antarindividu dalam ruang publik.', link: 'https://drive.google.com/file/d/1DM-BTJbpK-iZ2ahRt5SDub0a1fp7BIUv/view?usp=drive_link', context: 'Fundamental', time: 15 },
-            { class: 'X', kd: '3.3', title: 'Ragam Gejala Sosial', desc: 'Fenomena sosial, nilai norma, dan proses sosialisasi yang membentuk identitas kolektif.', link: 'https://drive.google.com/file/d/1ZT9QzhyVABcA0iVNtp_PQEpNNSiYYPpt/view?usp=drive_link', context: 'Fundamental', time: 15 },
-            { class: 'X', kd: '3.4', title: 'Metode Penelitian Sosial', desc: 'Rancangan, pelaksanaan, dan etika penelitian sosial untuk membedah realitas empiris.', link: 'https://drive.google.com/file/d/1AFsSqlQ0_dyRdpwwnx4YD8vA6lyNC88j/view?usp=drive_link', context: 'Kritis', time: 20 },
-            // KELAS XI
-            { class: 'XI', kd: '3.1', title: 'Kelompok Sosial di Masyarakat', desc: 'Pembentukan, klasifikasi, dan dinamika kelompok yang menjadi struktur dasar kehidupan.', link: 'https://drive.google.com/file/d/1WFoW-HFPkoXjxC96Lx6lx_zRGRK6I6o7/view?usp=drive_link', context: 'Fundamental', time: 15 },
-            { class: 'XI', kd: '3.2', title: 'Masalah dan Eksklusi Sosial', desc: 'Permasalahan sosial akibat ketidakadilan struktur dan proses marginalisasi kelompok tertentu.', link: 'https://drive.google.com/file/d/1XuBQAuRkAaB7IOuIXc9dpV0hRFrqOFuO/view?usp=drive_link', context: 'Trending', time: 15 },
-            { class: 'XI', kd: '3.3', title: 'Kesetaraan Sosial', desc: 'Prinsip inklusi dalam perbedaan sosial untuk mewujudkan harmoni dan keadilan.', link: 'https://drive.google.com/file/d/12IdbE_d5_SLnWMiTSIWy-cLmVciWZZsW/view?usp=drive_link', context: 'Fundamental', time: 15 },
-            { class: 'XI', kd: '3.4', title: 'Konflik dan Resolusi Konflik', desc: 'Analisis kekerasan, konflik kepentingan, dan berbagai model penyelesaian damai.', link: 'https://drive.google.com/file/d/1e8irIfZmzRrnwyIhmwUE9GSCkajomDw0/view?usp=drive_link', context: 'Kritis', time: 20 },
-            { class: 'XI', kd: '3.5', title: 'Integrasi Sosial', desc: 'Proses pemulihan hubungan pasca konflik dan mekanisme reintegrasi sosial masyarakat.', link: 'https://drive.google.com/file/d/1NGMu7neFY7C39-6EqC8VkxsVld-GZgBa/view?usp=drive_link', context: 'Fundamental', time: 15 },
-            // KELAS XII
-            { class: 'XII', kd: '3.1', title: 'Perubahan Sosial Masyarakat', desc: 'Faktor penyebab, arah perubahan, dan dampak transformasi sosial di era modern.', link: 'https://drive.google.com/file/d/1j3aSW6yPx7DWXqWH3zrcn4YIoNW6XsJA/view?usp=drive_link', context: 'Fundamental', time: 15 },
-            { class: 'XII', kd: '3.2', title: 'Permasalahan Sosial Globalisasi', desc: 'Tantangan identitas budaya dan dampak ekonomi-politik di tengah arus globalisasi.', link: 'https://drive.google.com/file/d/1q0pa5uE4QE8FO7qxbihYjZyXL480z8rL/view?usp=drive_link', context: 'Trending', time: 15 },
-            { class: 'XII', kd: '3.3', title: 'Ketimpangan Sosial', desc: 'Analisis disparitas sebagai dampak perubahan global dan kebijakan pembangunan.', link: 'https://drive.google.com/file/d/1ZrSQ5mQ5SS61Ezqhbe7IKCI9fZVin_60/view?usp=drive_link', context: 'Kritis', time: 20 },
-            { class: 'XII', kd: '3.4', title: 'Strategi Pemberdayaan Komunitas', desc: 'Pemberdayaan masyarakat berbasis kearifan lokal untuk resiliensi sosial.', link: 'https://drive.google.com/file/d/1YTFY4ErqlaCeMbhhC04E6MRIOTzvAd8t/view?usp=drive_link', context: 'Fundamental', time: 15 },
-            { class: 'XII', kd: '3.5', title: 'Evaluasi Pemberdayaan', desc: 'Metodologi pemantauan dan penilaian efektivitas program pemberdayaan komunitas.', link: 'https://drive.google.com/file/d/11UvmLIOyxkTXnQPBdXDR3ispS0eR_KjG/view?usp=drive_link', context: 'Fundamental', time: 15 }
+            { class: 'X', kategori: 'materi', title: 'Sosiologi sebagai Ilmu Pengetahuan', desc: 'Membangun ontologi sosiologi sebagai kajian ilmiah yang empiris dan teoretis untuk membedah realitas sosial.', link: 'https://drive.google.com/file/d/1WixnAjL6mTuX2FlzKbHswg3Y0JYwPddN/view?usp=drive_link', context: 'Fundamental', time: 10, status: 'published', kd: '3.1' },
+            { class: 'X', kategori: 'materi', title: 'Hubungan Sosial', desc: 'Analisis dialektika interaksi sosial, agensi individu, dan tindakan komunikatif dalam membangun struktur publik.', link: 'https://drive.google.com/file/d/1DM-BTJbpK-iZ2ahRt5SDub0a1fp7BIUv/view?usp=drive_link', context: 'Fundamental', time: 15, status: 'published', kd: '3.2' },
+            { class: 'X', kategori: 'materi', title: 'Ragam Gejala Sosial', desc: 'Fenomena sosial dalam bingkai nilai dan norma yang membentuk proses sosialisasi serta identitas kolektif.', link: 'https://drive.google.com/file/d/1ZT9QzhyVABcA0iVNtp_PQEpNNSiYYPpt/view?usp=drive_link', context: 'Fundamental', time: 15, status: 'published', kd: '3.3' },
+            { class: 'X', kategori: 'literasi', title: 'Metode Penelitian Sosial', desc: 'Dekonstruksi realitas melalui metodologi penelitian sosial: dari rancangan empiris hingga interpretasi data kritis.', link: 'https://drive.google.com/file/d/1AFsSqlQ0_dyRdpwwnx4YD8vA6lyNC88j/view?usp=drive_link', context: 'Kritis', time: 20, status: 'published', kd: '3.4' },
+            { class: 'XI', kategori: 'materi', title: 'Kelompok Sosial di Masyarakat', desc: 'Strukturasi kelompok sosial dan dinamika antar-kelompok dalam membangun integrasi di tengah perbedaan.', link: 'https://drive.google.com/file/d/1WFoW-HFPkoXjxC96Lx6lx_zRGRK6I6o7/view?usp=drive_link', context: 'Fundamental', time: 15, status: 'published', kd: '3.1' },
+            { class: 'XI', kategori: 'literasi', title: 'Masalah dan Eksklusi Sosial', desc: 'Membedah akar patologi sosial, ketidakadilan struktural, dan mekanisme marjinalisasi kelompok rentan.', link: 'https://drive.google.com/file/d/1XuBQAuRkAaB7IOuIXc9dpV0hRFrqOFuO/view?usp=drive_link', context: 'Trending', time: 15, status: 'published', kd: '3.2' },
+            { class: 'XI', kategori: 'materi', title: 'Kesetaraan Sosial', desc: 'Visi inklusi dalam masyarakat multikultural: harmoni di tengah diferensiasi dan stratifikasi sosial yang kompleks.', link: 'https://drive.google.com/file/d/12IdbE_d5_SLnWMiTSIWy-cLmVciWZZsW/view?usp=drive_link', context: 'Fundamental', time: 15, status: 'published', kd: '3.3' },
+            { class: 'XI', kategori: 'pengayaan', title: 'Konflik dan Resolusi Konflik', desc: 'Analisis kekerasan struktural, konflik kepentingan, dan model penyelesaian damai yang berkelanjutan di masyarakat.', link: 'https://drive.google.com/file/d/1e8irIfZmzRrnwyIhmwUE9GSCkajomDw0/view?usp=drive_link', context: 'Kritis', time: 20, status: 'published', kd: '3.4' },
+            { class: 'XI', kategori: 'materi', title: 'Integrasi Sosial', desc: 'Sintesis hubungan pasca-konflik dan mekanisme reintegrasi dalam membangun resiliensi komunitas yang terbelah.', link: 'https://drive.google.com/file/d/1NGMu7neFY7C39-6EqC8VkxsVld-GZgBa/view?usp=drive_link', context: 'Fundamental', time: 15, status: 'published', kd: '3.5' },
+            { class: 'XII', kategori: 'materi', title: 'Perubahan Sosial Masyarakat', desc: 'Fenomenologi transformasi sosial di era modernitas: mengkaji faktor pendorong, arah perubahan, dan dampaknya.', link: 'https://drive.google.com/file/d/1j3aSW6yPx7DWXqWH3zrcn4YIoNW6XsJA/view?usp=drive_link', context: 'Fundamental', time: 15, status: 'published', kd: '3.1' },
+            { class: 'XII', kategori: 'serba serbi', title: 'Permasalahan Sosial Globalisasi', desc: 'Konvergensi budaya, ekonomi global, dan tantangan identitas lokal di tengah arus digitalisasi dunia yang masif.', link: 'https://drive.google.com/file/d/1q0pa5uE4QE8FO7qxbihYjZyXL480z8rL/view?usp=drive_link', context: 'Trending', time: 15, status: 'published', kd: '3.2' },
+            { class: 'XII', kategori: 'pengayaan', title: 'Ketimpangan Sosial', desc: 'Kritik atas disparitas pembangunan dan ketidakadilan akses sumber daya di tengah kebijakan pembangunan global.', link: 'https://drive.google.com/file/d/1ZrSQ5mQ5SS61Ezqhbe7IKCI9fZVin_60/view?usp=drive_link', context: 'Kritis', time: 20, status: 'published', kd: '3.3' },
+            { class: 'XII', kategori: 'materi', title: 'Strategi Pemberdayaan Komunitas', desc: 'Agensi lokal berbasis kearifan budaya sebagai instrumen pemberdayaan dan kedaulatan sosial masyarakat.', link: 'https://drive.google.com/file/d/1YTFY4ErqlaCeMbhhC04E6MRIOTzvAd8t/view?usp=drive_link', context: 'Fundamental', time: 15, status: 'published', kd: '3.4' },
+            { class: 'XII', kategori: 'literasi', title: 'Evaluasi Pemberdayaan', desc: 'Epistemologi pemantauan dan penilaian efektivitas program intervensi sosial untuk keberlanjutan perubahan.', link: 'https://drive.google.com/file/d/11UvmLIOyxkTXnQPBdXDR3ispS0eR_KjG/view?usp=drive_link', context: 'Fundamental', time: 15, status: 'published', kd: '3.5' }
         ];
 
-        // State Global
-        window.state = {
-            cloudModules: [],
-            searchQuery: '',
-            activeTab: 'all',
-            isFavOnly: false,
-            isAdmin: false,
-            loading: true,
-            user: null,
-            favorites: JSON.parse(localStorage.getItem('soc_fav_collection') || '[]')
-        };
-
-        // --- AUTH SYSTEM ---
-        const startAuth = async () => {
+        async function syncCloud() {
+            if (SPREADSHEET_API_URL.includes("https://script.google.com/macros/s/AKfycbwy6N_2jqxh-u2_b33yOfxv56Ma1k1Qzzihb6ur_ISs-cwUjzXrvVz01itu905qTsv8fw/exec")) { state.loading = false; renderApp(); return; }
             try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-            } catch (e) { console.error("Krisis Identitas:", e); }
-        };
-
-        onAuthStateChanged(auth, (user) => {
-            state.user = user;
-            if (user) startFirestoreListener();
-        });
-
-        startAuth();
-
-        // --- FIRESTORE ENGINE ---
-        function startFirestoreListener() {
-            if (!state.user) return;
-            const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'modules');
-            
-            onSnapshot(colRef, (snap) => {
-                state.cloudModules = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-                state.loading = false;
-                renderApp();
-            }, (error) => {
-                console.warn("Firestore access restricted, using local archive.");
-                state.loading = false;
-                renderApp();
-            });
+                const response = await fetch(SPREADSHEET_API_URL);
+                state.modules = await response.json();
+            } catch (e) { console.warn("Sinkronisasi ditunda."); }
+            state.loading = false; renderApp();
         }
 
-        // --- UI INTERACTION LOGIC ---
-        window.notify = (msg, icon = "fa-circle-info") => {
+        async function trackEngagement(id) {
+            if (SPREADSHEET_API_URL.includes("ISI_URL")) return;
+            fetch(SPREADSHEET_API_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ action: 'track_view', id: id }) });
+        }
+
+        window.notify = (msg) => {
             const wrap = document.getElementById('toast-box');
             const t = document.createElement('div');
-            t.className = `px-8 py-5 glass rounded-[1.5rem] shadow-3xl flex items-center gap-4 mb-4 border-l-4 border-brand-indigo animate-slide-up duration-300`;
-            t.innerHTML = `<i class="fa-solid ${icon} text-brand-indigo text-lg"></i> <span class="text-xs font-black uppercase tracking-widest">${msg}</span>`;
+            t.className = `px-10 py-6 arch-card rounded-3xl shadow-5xl mb-5 border-l-8 border-scholastic-gold animate-reveal`;
+            t.innerHTML = `<span class="text-xs font-black uppercase tracking-[0.2em]">${msg}</span>`;
             wrap.appendChild(t);
-            setTimeout(() => { t.classList.add('opacity-0'); setTimeout(() => t.remove(), 400); }, 3500);
+            setTimeout(() => { t.classList.add('opacity-0'); setTimeout(() => t.remove(), 600); }, 3500);
         };
 
         window.toggleDarkMode = () => {
             document.documentElement.classList.toggle('dark');
-            const isDark = document.documentElement.classList.contains('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            document.getElementById('theme-icon').className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
         };
 
-        window.toggleAdminPanel = () => {
+        window.openOtoritas = () => {
             if(state.isAdmin) {
-                state.isAdmin = false;
-                document.getElementById('add-btn').classList.add('hidden');
-                document.getElementById('admin-trigger').classList.remove('text-brand-indigo');
-                notify("Kembali ke Akses Publik.");
-                renderApp();
-            } else {
-                showModal('modal-auth');
-                document.getElementById('auth-field').focus();
-            }
+                state.isAdmin = false; document.getElementById('add-btn').classList.add('hidden');
+                document.getElementById('admin-trigger').classList.remove('text-scholastic-gold');
+                notify("Akses Publik."); renderApp();
+            } else { showGlobalModal('modal-auth'); document.getElementById('pass-field').focus(); }
         };
 
-        window.verifyAdmin = () => {
-            if(document.getElementById('auth-field').value === 'cornelcktc') {
-                state.isAdmin = true;
-                document.getElementById('add-btn').classList.remove('hidden');
-                document.getElementById('admin-trigger').classList.add('text-brand-indigo');
-                closeModals();
-                notify("Akses Kurator Diterima.", "fa-user-shield");
-                renderApp();
-            } else { notify("Verifikasi gagal.", "fa-circle-xmark"); }
-            document.getElementById('auth-field').value = '';
+        window.doAuth = () => {
+            if(document.getElementById('pass-field').value === 'cornelcktc') {
+                state.isAdmin = true; document.getElementById('add-btn').classList.remove('hidden');
+                document.getElementById('admin-trigger').classList.add('text-scholastic-gold');
+                closeModals(); notify("Akses Kurator Berhasil."); renderApp();
+            } else { notify("Verifikasi Ditolak."); }
+            document.getElementById('pass-field').value = '';
         };
 
-        window.setTab = (val) => {
-            state.activeTab = val;
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.className = "tab-btn px-8 py-3.5 rounded-2xl text-xs font-black uppercase tracking-widest transition-all glass text-slate-500 hover:text-brand-indigo");
-            document.getElementById(`tab-${val}`).className = "tab-btn active px-8 py-3.5 rounded-2xl text-xs font-black uppercase tracking-widest transition-all bg-slate-900 dark:bg-brand-indigo text-white shadow-lg";
-            renderApp();
-        };
-
-        window.handleSearch = () => {
-            state.searchQuery = document.getElementById('search-input').value.toLowerCase();
-            renderApp();
-        };
-
-        window.toggleFavsOnly = () => {
-            state.isFavOnly = !state.isFavOnly;
-            document.getElementById('fav-btn').classList.toggle('bg-brand-rose');
-            document.getElementById('fav-btn').classList.toggle('text-white');
-            renderApp();
-        };
-
-        window.updateFavItem = (id) => {
-            const idx = state.favorites.indexOf(id);
-            if(idx > -1) state.favorites.splice(idx, 1);
-            else state.favorites.push(id);
-            localStorage.setItem('soc_fav_collection', JSON.stringify(state.favorites));
-            renderApp();
-        };
+        window.applyFilter = (v) => { state.filter = v; renderApp(); };
+        window.handleSearch = () => { state.search = document.getElementById('search-input').value.toLowerCase(); renderApp(); };
 
         const overlay = document.getElementById('modal-overlay');
-        window.showModal = (id) => {
-            overlay.classList.remove('hidden');
-            overlay.classList.add('flex');
-            setTimeout(() => overlay.classList.add('opacity-100'), 10);
-            document.getElementById(id).classList.remove('hidden');
-        };
-        window.closeModals = () => {
-            overlay.classList.remove('opacity-100');
-            setTimeout(() => {
-                overlay.classList.add('hidden');
-                overlay.classList.remove('flex');
-                document.querySelectorAll('#modal-overlay > div').forEach(d => d.classList.add('hidden'));
-            }, 300);
-        };
+        window.showGlobalModal = (id) => { overlay.classList.remove('hidden'); overlay.classList.add('flex'); setTimeout(() => overlay.classList.add('opacity-100'), 10); document.getElementById(id).classList.remove('hidden'); };
+        window.closeModals = () => { overlay.classList.remove('opacity-100'); setTimeout(() => { overlay.classList.add('hidden'); overlay.classList.remove('flex'); document.querySelectorAll('#modal-overlay > div').forEach(d => d.classList.add('hidden')); }, 400); };
 
         window.openEditor = (id = null) => {
-            showModal('modal-editor');
-            const form = document.getElementById('editor-form');
-            form.reset();
-            document.getElementById('entry-id').value = '';
+            showGlobalModal('modal-editor'); const form = document.getElementById('main-form'); form.reset(); document.getElementById('item-id').value = id || '';
             if(id) {
-                // Cari di Cloud atau Internal
-                const item = state.cloudModules.find(m => m.id === id) || INTERNAL_ARCHIVE.find(m => m.title === id);
-                document.getElementById('entry-id').value = id;
-                document.getElementById('e-class').value = item.class;
-                document.getElementById('e-kd').value = item.kd;
-                document.getElementById('e-title').value = item.title;
-                document.getElementById('e-desc').value = item.desc;
-                document.getElementById('e-context').value = item.context;
-                document.getElementById('e-time').value = item.time;
-                document.getElementById('e-link').value = item.link;
+                const m = state.modules.find(d => d.id == id) || INTERNAL_ARCHIVE.find(d => d.title === id);
+                document.getElementById('i-class').value = m.class; document.getElementById('i-kategori').value = m.kategori || 'materi';
+                document.getElementById('i-title').value = m.title; document.getElementById('i-desc').value = m.desc;
+                document.getElementById('i-status').value = m.status || 'published'; document.getElementById('i-kd').value = m.kd || '';
+                document.getElementById('i-link').value = m.link;
             }
         };
 
-        document.getElementById('editor-form').onsubmit = async (e) => {
+        document.getElementById('main-form').onsubmit = async (e) => {
             e.preventDefault();
-            if (!state.user || !state.isAdmin) return;
-            const id = document.getElementById('entry-id').value;
             const payload = {
-                class: document.getElementById('e-class').value,
-                kd: document.getElementById('e-kd').value,
-                title: document.getElementById('e-title').value,
-                desc: document.getElementById('e-desc').value,
-                context: document.getElementById('e-context').value,
-                time: parseInt(document.getElementById('e-time').value),
-                link: document.getElementById('e-link').value,
-                updatedAt: Date.now()
+                action: 'upsert', id: document.getElementById('item-id').value,
+                class: document.getElementById('i-class').value, kategori: document.getElementById('i-kategori').value,
+                title: document.getElementById('i-title').value, desc: document.getElementById('i-desc').value,
+                status: document.getElementById('i-status').value, kd: document.getElementById('i-kd').value,
+                link: document.getElementById('i-link').value, time: 15
             };
-            try {
-                // Selalu simpan ke Cloud
-                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'modules'), payload);
-                closeModals();
-                notify("Perubahan Dialihkan ke Cloud.");
-            } catch (err) { notify("Kesalahan simpan data.", "fa-triangle-exclamation"); }
+            notify("Menyinkronkan...");
+            try { await fetch(SPREADSHEET_API_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); setTimeout(() => location.reload(), 1500); } catch (err) { notify("Gagal."); }
         };
 
-        window.dropModule = async (id) => {
-            if(confirm("Disingkirkan dari cloud secara permanen?")) {
-                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'modules', id));
-                notify("Materi Dihapus.");
-            }
-        };
-
-        // --- RENDER ENGINE (HYBRID ARCHIVE) ---
         function renderApp() {
-            const grid = document.getElementById('grid-content');
-            grid.innerHTML = '';
+            const grid = document.getElementById('grid-content'); grid.innerHTML = '';
+            
+            if (state.loading) {
+                for(let i=0; i<6; i++) grid.innerHTML += `<div class="arch-card rounded-[3rem] p-16 h-96 flex flex-col gap-10"><div class="w-24 h-6 shimmer rounded-xl"></div><div class="w-full h-10 shimmer rounded-2xl"></div><div class="w-2/3 h-6 shimmer rounded-lg"></div></div>`;
+                return;
+            }
 
-            // Gabungkan Internal Archive dengan Cloud Data (Tanpa Duplikasi Judul)
-            const internalTitles = new Set(state.cloudModules.map(m => m.title));
-            const baseData = [
-                ...state.cloudModules,
-                ...INTERNAL_ARCHIVE.filter(m => !internalTitles.has(m.title))
-            ];
+            const cloudTitles = new Set(state.modules.map(m => m.title));
+            const baseData = [...state.modules, ...INTERNAL_ARCHIVE.filter(m => !cloudTitles.has(m.title))];
 
             const filtered = baseData.filter(m => {
-                const matchTab = state.activeTab === 'all' || m.class === state.activeTab;
-                const matchSearch = m.title.toLowerCase().includes(state.searchQuery) || m.desc.toLowerCase().includes(state.searchQuery);
-                const matchFav = !state.isFavOnly || state.favorites.includes(m.id || m.title);
-                return matchTab && matchSearch && matchFav;
+                if (!state.isAdmin && m.status !== 'published') return false;
+                const matchTab = state.filter === 'all' || m.class === state.filter;
+                const matchSearch = m.title.toLowerCase().includes(state.search) || m.desc.toLowerCase().includes(state.search);
+                return matchTab && matchSearch;
             });
 
-            if (filtered.length === 0) document.getElementById('empty-ui').classList.remove('hidden');
-            else document.getElementById('empty-ui').classList.add('hidden');
+            if (filtered.length === 0) document.getElementById('no-data').classList.remove('hidden');
+            else document.getElementById('no-data').classList.add('hidden');
 
             filtered.forEach((m, i) => {
-                const id = m.id || m.title;
-                const isFav = state.favorites.includes(id);
-                const ctxColors = {
-                    'Fundamental': 'bg-indigo-50 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300',
-                    'Kritis': 'bg-rose-50 text-rose-600 dark:bg-rose-900/40 dark:text-rose-300',
-                    'Trending': 'bg-amber-50 text-amber-600 dark:bg-amber-900/40 dark:text-amber-300',
-                    'Studi Kasus': 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-300'
-                };
-
+                const id = m.id || m.title; const isPublished = m.status === 'published';
+                
                 grid.innerHTML += `
-                    <div class="group glass rounded-[2.8rem] p-10 flex flex-col h-full hover:-translate-y-4 hover:shadow-2xl transition-all duration-700 animate-slide-up border-white/30" style="animation-delay: ${i*40}ms">
-                        <div class="flex justify-between items-center mb-10">
-                            <span class="px-5 py-2 bg-white dark:bg-slate-900 text-[9px] font-black text-slate-500 rounded-xl tracking-[0.2em] uppercase border border-slate-100 dark:border-slate-800 shadow-sm">KELAS ${m.class}</span>
-                            <button onclick="updateFavItem('${id}')" class="text-2xl transition-transform active:scale-150 duration-300 ${isFav ? 'text-brand-rose' : 'text-slate-300 hover:text-brand-rose'}">
-                                <i class="fa-${isFav ? 'solid' : 'regular'} fa-heart"></i>
-                            </button>
+                    <div class="group arch-card rounded-[3.5rem] p-16 flex flex-col h-full ${!isPublished ? 'opacity-40 grayscale' : ''}" style="animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards ${i*0.05}s">
+                        <div class="flex justify-between items-center mb-14">
+                            <span class="px-8 py-3 bg-scholastic-midnight dark:bg-slate-900 text-[10px] font-black text-white rounded-2xl tracking-[0.3em] uppercase">KELAS ${m.class}</span>
+                            ${state.isAdmin ? `<button onclick="openEditor('${id}')" class="text-slate-400 hover:text-scholastic-gold transition-colors"><i class="fa-solid fa-marker text-xl"></i></button>` : `<i class="fa-solid fa-graduation-cap text-slate-200"></i>`}
                         </div>
-
-                        <div class="mb-6 flex items-center gap-3">
-                            <span class="px-3 py-1 ${ctxColors[m.context] || 'bg-slate-100'} text-[8px] font-black uppercase rounded-full shadow-sm tracking-widest">
-                                ${m.context || 'Modul'}
-                            </span>
-                            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest opacity-60">${m.time || 15} mnt baca</span>
+                        <div class="mb-10 flex items-center gap-4">
+                            <span class="px-5 py-2 bg-scholastic-gold/10 text-scholastic-gold text-[9px] font-black uppercase rounded-full shadow-sm tracking-[0.2em] border border-scholastic-gold/20">${m.kategori || 'Narasi'}</span>
+                            ${state.isAdmin && !isPublished ? '<span class="text-[9px] font-black text-scholastic-crimson uppercase tracking-widest bg-scholastic-crimson/10 px-4 py-2 rounded-full">DRAFT</span>' : ''}
+                            <span class="text-[12px] font-bold text-scholastic-clay dark:text-slate-400 uppercase opacity-60 ml-auto">${m.views || 0} <i class="fa-solid fa-bolt-lightning ml-2 text-[10px]"></i></span>
                         </div>
-
-                        <h3 class="font-serif font-bold text-3xl text-slate-900 dark:text-white mb-6 leading-tight group-hover:text-brand-indigo transition-colors duration-300 tracking-tight">${m.title}</h3>
-                        <p class="text-base text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-3 mb-12 font-light italic opacity-90">"${m.desc}"</p>
-
-                        <div class="mt-auto pt-8 border-t border-slate-50 dark:border-slate-800/50 flex justify-between items-center">
-                            <div class="flex gap-3">
-                                ${state.isAdmin ? `
-                                    <button onclick="openEditor('${id}')" title="Revisi" class="w-11 h-11 glass rounded-2xl flex items-center justify-center text-slate-400 hover:text-brand-indigo hover:bg-white transition-all shadow-sm"><i class="fa-solid fa-pen-nib text-sm"></i></button>
-                                    ${m.id ? `<button onclick="dropModule('${m.id}')" title="Hapus" class="w-11 h-11 glass rounded-2xl flex items-center justify-center text-slate-400 hover:text-brand-rose hover:bg-white transition-all shadow-sm"><i class="fa-solid fa-trash-can text-sm"></i></button>` : ''}
-                                ` : `<span class="text-[11px] font-black text-slate-300 tracking-[0.2em] uppercase">KD ${m.kd}</span>`}
-                            </div>
-                            <a href="${m.link}" target="_blank" class="px-8 py-4 bg-brand-slate dark:bg-brand-indigo text-white rounded-[1.5rem] text-[10px] font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-indigo-500/20">Akses Modul</a>
+                        <h3 class="font-serif font-black text-5xl text-scholastic-midnight dark:text-white mb-10 leading-[1.05] group-hover:text-scholastic-gold transition-colors duration-500 tracking-tighter">${m.title}</h3>
+                        <p class="text-xl text-scholastic-clay dark:text-slate-400 leading-relaxed line-clamp-4 mb-16 font-light italic opacity-90">"${m.desc}"</p>
+                        <div class="mt-auto pt-12 border-t border-slate-100 dark:border-slate-900 flex justify-between items-center">
+                            <span class="text-[14px] font-black text-slate-200 dark:text-slate-800 tracking-[0.4em] uppercase">${m.kd || 'INDX'}</span>
+                            <a href="${m.link}" target="_blank" onclick="trackEngagement('${m.id}')" class="px-12 py-6 bg-scholastic-midnight dark:bg-scholastic-gold text-white dark:text-scholastic-midnight rounded-[3rem] text-[12px] font-black uppercase tracking-[0.4em] hover:scale-110 active:scale-95 transition-all shadow-5xl shadow-scholastic-gold/20">Akses</a>
                         </div>
                     </div>`;
             });
         }
+        
+        if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
+        syncCloud();
     </script>
 </body>
 </html>
