@@ -127,7 +127,7 @@
         <!-- Filter & Search Dialektis -->
         <div class="arch-card rounded-[3.5rem] p-6 mb-24 sticky top-10 z-50 flex flex-col xl:flex-row items-center gap-8 border-none shadow-4xl">
             <div class="relative w-full xl:flex-1 group">
-                <i class="fa-solid fa-magnifying-glass absolute left-8 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-scholastic-gold transition-colors text-xl"></i>
+                <i class="fa-solid fa-magnifying-glass absolute left-8 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-scholastic-gold transition-colors"></i>
                 <input type="text" id="search-input" oninput="handleSearch()" placeholder="Cari materi, konsep, atau abstraksi..." class="w-full pl-18 pr-8 py-4 bg-transparent border-none focus:ring-0 text-scholastic-midnight dark:text-white font-semibold text-xl placeholder-slate-400/50">
             </div>
             <div class="flex items-center gap-4 overflow-x-auto w-full xl:w-auto pb-2 xl:pb-0 no-scrollbar px-2">
@@ -208,7 +208,11 @@
                         <input type="url" id="i-link" required class="w-full bg-slate-50 dark:bg-scholastic-midnight rounded-[2.5rem] p-6 text-sm border border-slate-200 dark:border-slate-800 focus:ring-4 ring-scholastic-gold/20 outline-none shadow-inner transition-all">
                     </div>
                 </div>
-                <input type="hidden" id="i-kd" value="INDX">
+                <!-- Metadata KD -->
+                <div class="flex flex-col gap-3">
+                    <label class="text-[11px] font-black text-scholastic-clay uppercase tracking-[0.3em] ml-4">Kode KD / Indeks</label>
+                    <input type="text" id="i-kd" class="w-full bg-slate-50 dark:bg-scholastic-midnight rounded-[2.5rem] p-6 text-sm border border-slate-200 dark:border-slate-800 focus:ring-4 ring-scholastic-gold/20 outline-none shadow-inner transition-all" placeholder="3.1">
+                </div>
                 <button type="submit" id="submit-btn" class="w-full py-8 bg-scholastic-midnight dark:bg-scholastic-gold text-white dark:text-scholastic-midnight rounded-[3rem] font-black text-[12px] uppercase tracking-[0.5em] shadow-5xl hover:scale-[1.02] active:scale-[0.98] transition-all">SINKRONKAN DIALEKTIKA</button>
             </form>
         </div>
@@ -217,8 +221,8 @@
     <div id="toast-box"></div>
 
     <script type="module">
-        // KONFIGURASI API
-        const SPREADSHEET_API_URL = "https://script.google.com/macros/s/AKfycbxYykLRE56FNGLKdzE1HhqCXkL9MFsfl3Q_CHofnrOxkfreL73BDoP97fic6ZSk0zvVKQ/exec";
+        // PENTING: Ganti URL di bawah ini dengan URL Web App Apps Script Anda yang baru di-deploy!
+        const SPREADSHEET_API_URL = "https://script.google.com/macros/s/AKfycbyZgIJU1-jSKTIqZYYlzTGHRNRNbAhp_i71FxqBjlxYxXRf2P0LGFWpLcbipsB7RQjIdg/exec";
 
         window.state = { modules: [], search: '', filter: 'all', isAdmin: false, loading: true };
 
@@ -330,7 +334,7 @@
             };
 
             try {
-                // Menggunakan mode no-cors untuk berinteraksi dengan Google Apps Script
+                // Menunggu proses POST selesai sebelum reload
                 await fetch(SPREADSHEET_API_URL, {
                     method: 'POST',
                     mode: 'no-cors',
@@ -339,25 +343,13 @@
                 });
                 
                 notify("Narasi Berhasil Disinkronkan.");
-                // Delay reload untuk memberikan waktu Apps Script memproses data
-                setTimeout(() => { location.reload(); }, 2500);
+                // Delay reload ditingkatkan untuk memastikan data mendarat di Apps Script
+                setTimeout(() => { location.reload(); }, 3500);
             } catch (err) {
                 notify("Kegagalan Transmisi.");
                 btn.disabled = false;
-                btn.innerText = "SIMPAN PERUBAHAN";
+                btn.innerText = "SINKRONKAN DIALEKTIKA";
             }
-        };
-
-        window.dropItem = async (id) => {
-            if(!confirm("Hapus fragmen narasi?")) return;
-            try {
-                await fetch(SPREADSHEET_API_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: JSON.stringify({ action: 'delete', id: id })
-                });
-                setTimeout(() => location.reload(), 1500);
-            } catch (e) { notify("Gagal."); }
         };
 
         function renderApp() {
@@ -387,8 +379,8 @@
                 grid.innerHTML += `
                     <div class="group arch-card rounded-[3.5rem] p-16 flex flex-col h-full ${!isPublished ? 'opacity-40 grayscale' : ''}" style="animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards ${i*0.05}s">
                         <div class="flex justify-between items-center mb-14">
-                            <span class="px-8 py-3 bg-scholastic-midnight dark:bg-slate-900 text-[10px] font-black text-white rounded-2xl tracking-[0.3em] uppercase">KELAS ${m.class}</span>
-                            ${state.isAdmin ? `<button onclick="openEditor('${id}')" class="text-slate-400 hover:text-scholastic-gold transition-colors"><i class="fa-solid fa-marker text-xl"></i></button>` : `<i class="fa-solid fa-graduation-cap text-slate-200"></i>`}
+                            <span class="px-8 py-3 bg-scholastic-midnight dark:bg-slate-900 text-[10px] font-black text-white rounded-2xl tracking-[0.3em] uppercase shadow-sm">KELAS ${m.class}</span>
+                            ${state.isAdmin ? `<button onclick="openEditor('${m.id}')" class="text-slate-400 hover:text-scholastic-gold transition-colors"><i class="fa-solid fa-marker text-xl"></i></button>` : `<i class="fa-solid fa-graduation-cap text-slate-200"></i>`}
                         </div>
                         <div class="mb-10 flex items-center gap-4">
                             <span class="px-5 py-2 bg-scholastic-gold/10 text-scholastic-gold text-[9px] font-black uppercase rounded-full shadow-sm tracking-[0.2em] border border-scholastic-gold/20">${m.kategori || 'Narasi'}</span>
@@ -400,7 +392,6 @@
                         <div class="mt-auto pt-12 border-t border-slate-100 dark:border-slate-900 flex justify-between items-center">
                             <span class="text-[14px] font-black text-slate-200 dark:text-slate-800 tracking-[0.4em] uppercase">${m.kd || 'INDX'}</span>
                             <div class="flex gap-4">
-                                ${state.isAdmin && String(m.id).startsWith("SOC-") ? `<button onclick="dropItem('${m.id}')" class="w-12 h-12 flex items-center justify-center text-slate-300 hover:text-scholastic-crimson transition-all active:scale-90"><i class="fa-solid fa-trash-can"></i></button>` : ''}
                                 <a href="${m.link}" target="_blank" onclick="trackEngagement('${m.id}')" class="px-12 py-6 bg-scholastic-midnight dark:bg-scholastic-gold text-white dark:text-scholastic-midnight rounded-[3rem] text-[12px] font-black uppercase tracking-[0.4em] hover:scale-110 active:scale-95 transition-all shadow-5xl shadow-scholastic-gold/20">Akses</a>
                             </div>
                         </div>
