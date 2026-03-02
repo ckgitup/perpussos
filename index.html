@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lokus Dialektika | Arsitektur Imajinasi Sosial</title>
+    <title>Lokus Dialektika | www.sosiologi.eu.org</title>
     
-    <!-- Integrasi Visual & Tipografi Otoritatif -->
+    <!-- Core Assets: Tailwind, FontAwesome, Google Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -36,33 +36,33 @@
 
     <style>
         /* Desain Scrollbar Minimalis */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: #d97706; border-radius: 2px; }
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-thumb { background: #d97706; border-radius: 10px; }
         
         body { 
             background-color: #fdfdfd; 
             color: #0f172a;
-            transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: background-color 0.5s ease;
             overflow-x: hidden;
+            font-size: 0.95rem;
         }
         .dark body { background-color: #020617; color: #cbd5e1; }
 
-        /* Arsitektur Glassmorphism & Card */
+        /* Card Geometry - Optimized for high-density (hundreds of items) */
         .arch-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(203, 213, 225, 0.4);
-            box-shadow: 0 4px 30px -10px rgba(0, 0, 0, 0.05);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(203, 213, 225, 0.3);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .dark .arch-card {
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.3);
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.02);
         }
         .arch-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-4px);
             border-color: #d97706;
+            box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.1);
         }
 
         .text-accent {
@@ -71,158 +71,169 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Skeleton Shimmer */
         .shimmer {
             background: linear-gradient(90deg, transparent 25%, rgba(217, 119, 6, 0.05) 50%, transparent 75%);
             background-size: 200% 100%;
-            animation: shimmerEffect 2s infinite;
+            animation: shimmerEffect 1.5s infinite linear;
         }
         @keyframes shimmerEffect { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
         
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .text-balanced { text-wrap: balance; }
+        
+        /* Typography Clamp */
+        .line-clamp-titles { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .line-clamp-descs { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
     </style>
 </head>
 <body class="font-sans antialiased selection:bg-scholastic-gold selection:text-white">
 
-    <!-- Layer Estetika Ambient -->
+    <!-- Subtle Ambient Visual Layer -->
     <div class="fixed inset-0 -z-10 pointer-events-none opacity-40">
-        <div class="absolute top-[-5%] left-[-5%] w-[40vw] h-[40vw] bg-scholastic-gold/5 blur-[120px] rounded-full"></div>
-        <div class="absolute bottom-[-5%] right-[-5%] w-[40vw] h-[40vw] bg-scholastic-midnight/5 blur-[120px] rounded-full"></div>
+        <div class="absolute top-0 right-0 w-[40vw] h-[40vw] bg-scholastic-gold/5 blur-[120px] rounded-full"></div>
+        <div class="absolute bottom-0 left-0 w-[40vw] h-[40vw] bg-scholastic-midnight/5 blur-[120px] rounded-full"></div>
     </div>
 
-    <!-- Navigasi Otoritas -->
-    <nav class="fixed top-10 right-10 z-[200] flex flex-col gap-4">
-        <button onclick="toggleDarkMode()" title="Ubah Dimensi Cahaya" class="w-14 h-14 arch-card rounded-2xl flex items-center justify-center text-scholastic-ink dark:text-scholastic-gold hover:rotate-12 transition-all shadow-xl active:scale-90">
-            <i id="theme-ico" class="fa-solid fa-moon text-xl"></i>
+    <!-- Minimalist Floating Navigation -->
+    <nav class="fixed top-5 right-5 z-[200] flex flex-row gap-2">
+        <button onclick="toggleDarkMode()" class="w-10 h-10 arch-card rounded-xl flex items-center justify-center text-scholastic-ink dark:text-scholastic-gold hover:scale-105 active:scale-95 transition-all">
+            <i id="theme-ico" class="fa-solid fa-moon text-sm"></i>
         </button>
-        <button onclick="openOtoritas()" id="admin-trigger" title="Gerbang Kurator" class="w-14 h-14 arch-card rounded-2xl flex items-center justify-center text-slate-400 hover:text-scholastic-gold transition-all shadow-xl active:scale-90">
-            <i class="fa-solid fa-fingerprint text-xl"></i>
+        <button onclick="openOtoritas()" id="admin-trigger" class="w-10 h-10 arch-card rounded-xl flex items-center justify-center text-slate-400 hover:text-scholastic-gold transition-all">
+            <i class="fa-solid fa-fingerprint text-sm"></i>
         </button>
-        <button onclick="openEditor()" id="add-btn" class="hidden w-14 h-14 bg-scholastic-gold text-white rounded-2xl flex items-center justify-center shadow-3xl hover:scale-110 animate-bounce transition-all active:scale-95">
-            <i class="fa-solid fa-plus text-2xl"></i>
+        <button onclick="openEditor()" id="add-btn" class="hidden w-10 h-10 bg-scholastic-gold text-white rounded-xl flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all">
+            <i class="fa-solid fa-plus text-sm"></i>
         </button>
     </nav>
 
-    <!-- Manifesto Header -->
-    <header class="max-w-7xl mx-auto px-10 pt-40 pb-20 animate-entry">
-        <div class="max-w-4xl">
-            <div class="flex items-center gap-4 mb-10 overflow-hidden">
-                <span class="h-[1px] w-12 bg-scholastic-gold shrink-0"></span>
-                <span class="text-[10px] font-black uppercase tracking-[0.5em] text-scholastic-gold">Paradigma Digital 2026</span>
+    <!-- Compact Epistemic Header -->
+    <header class="max-w-screen-2xl mx-auto px-6 pt-16 pb-8 transition-all duration-700">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-100 dark:border-slate-900 pb-10">
+            <div class="max-w-2xl">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="h-[1px] w-8 bg-scholastic-gold"></span>
+                    <span class="text-[9px] font-black uppercase tracking-[0.4em] text-scholastic-gold opacity-80">www.sosiologi.eu.org</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-serif font-black text-scholastic-midnight dark:text-white leading-none tracking-tighter mb-4">
+                    Lokus <span class="text-accent italic">Dialektika.</span>
+                </h1>
+                <p class="text-base text-scholastic-clay dark:text-slate-400 font-light leading-relaxed italic text-balanced border-l border-scholastic-gold/30 pl-5">
+                    Membedah struktur, memetakan konflik, dan merayakan agensi di jantung masyarakat kontemporer.
+                </p>
             </div>
-            <h1 class="text-7xl md:text-[8.5rem] font-serif font-black text-scholastic-midnight dark:text-white leading-[0.85] mb-12 tracking-tighter">
-                Arsitektur <br>
-                <span class="text-accent italic">Imajinasi.</span>
-            </h1>
-            <p class="text-2xl md:text-3xl text-scholastic-clay dark:text-slate-400 font-light max-w-3xl leading-relaxed italic text-balanced">
-                Bukan sekadar arsip, melainkan lokus untuk membedah <span class="text-scholastic-midnight dark:text-white font-semibold">struktur</span> dan merayakan <span class="text-scholastic-midnight dark:text-white font-semibold">agensi</span>.
-            </p>
+            <div class="hidden lg:block text-right">
+                <span class="text-[10px] font-black text-slate-300 dark:text-slate-700 uppercase tracking-[0.5em] block mb-1">Knowledge Ecosystem</span>
+                <span class="text-xs font-serif italic text-scholastic-gold">Arsitektur Imajinasi Sosial</span>
+            </div>
         </div>
     </header>
 
-    <!-- Dashboard -->
-    <main class="max-w-7xl mx-auto px-10 pb-60">
+    <!-- UI Control Bar - Optimized for High Scannability -->
+    <main class="max-w-screen-2xl mx-auto px-6 pb-40">
         
-        <!-- Filter & Search Dialektis -->
-        <div class="arch-card rounded-[3.5rem] p-6 mb-24 sticky top-10 z-50 flex flex-col xl:flex-row items-center gap-8 border-none shadow-4xl">
-            <div class="relative w-full xl:flex-1 group">
-                <i class="fa-solid fa-magnifying-glass absolute left-8 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-scholastic-gold transition-colors"></i>
-                <input type="text" id="search-input" oninput="handleSearch()" placeholder="Cari materi, konsep, atau abstraksi..." class="w-full pl-18 pr-8 py-4 bg-transparent border-none focus:ring-0 text-scholastic-midnight dark:text-white font-semibold text-xl placeholder-slate-400/50">
-            </div>
-            <div class="flex items-center gap-4 overflow-x-auto w-full xl:w-auto pb-2 xl:pb-0 no-scrollbar px-2">
-                <button onclick="applyFilter('all')" id="f-all" class="tab-btn active px-10 py-4 rounded-3xl text-[10px] font-black uppercase tracking-widest transition-all bg-scholastic-midnight dark:bg-scholastic-gold text-white dark:text-scholastic-midnight shadow-2xl">Semua</button>
-                <button onclick="applyFilter('X')" id="f-X" class="tab-btn px-10 py-4 rounded-3xl text-[10px] font-black uppercase tracking-widest transition-all arch-card text-scholastic-clay border-none hover:text-scholastic-gold">Kelas X</button>
-                <button onclick="applyFilter('XI')" id="f-XI" class="tab-btn px-10 py-4 rounded-3xl text-[10px] font-black uppercase tracking-widest transition-all arch-card text-scholastic-clay border-none hover:text-scholastic-gold">Kelas XI</button>
-                <button onclick="applyFilter('XII')" id="f-XII" class="tab-btn px-10 py-4 rounded-3xl text-[10px] font-black uppercase tracking-widest transition-all arch-card text-scholastic-clay border-none hover:text-scholastic-gold">Kelas XII</button>
+        <div class="flex flex-col xl:flex-row items-center gap-4 mb-10 sticky top-5 z-50">
+            <div class="arch-card rounded-2xl p-2 flex-1 w-full flex items-center gap-4 border-none shadow-xl">
+                <div class="relative flex-1 group">
+                    <i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-scholastic-gold transition-colors text-sm"></i>
+                    <input type="text" id="search-input" oninput="handleSearch()" placeholder="Cari narasi atau indeks materi..." class="w-full pl-12 pr-4 py-2.5 bg-transparent border-none focus:ring-0 text-scholastic-midnight dark:text-white font-medium text-base placeholder-slate-400/50">
+                </div>
+                <div class="h-8 w-[1px] bg-slate-100 dark:bg-slate-800 hidden md:block"></div>
+                <div class="flex items-center gap-1 overflow-x-auto no-scrollbar pr-2">
+                    <button onclick="applyFilter('all')" id="f-all" class="tab-btn active px-5 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all bg-scholastic-midnight dark:bg-scholastic-gold text-white dark:text-scholastic-midnight">Semua</button>
+                    <button onclick="applyFilter('X')" id="f-X" class="tab-btn px-5 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all hover:bg-slate-50 dark:hover:bg-slate-800 text-scholastic-clay">Kelas X</button>
+                    <button onclick="applyFilter('XI')" id="f-XI" class="tab-btn px-5 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all hover:bg-slate-50 dark:hover:bg-slate-800 text-scholastic-clay">Kelas XI</button>
+                    <button onclick="applyFilter('XII')" id="f-XII" class="tab-btn px-5 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all hover:bg-slate-50 dark:hover:bg-slate-800 text-scholastic-clay">Kelas XII</button>
+                </div>
             </div>
         </div>
 
-        <!-- Content Grid -->
-        <div id="grid-content" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-14">
-            <!-- Data render secara dinamis -->
+        <!-- Material Grid - High Density (Up to 6 columns on large screens) -->
+        <div id="grid-content" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5">
+            <!-- Dynamic Injection -->
         </div>
 
-        <div id="no-data" class="hidden py-60 text-center">
-            <h3 class="text-3xl font-black text-scholastic-midnight dark:text-white mb-4 tracking-tighter">Hening Intelektual</h3>
-            <p class="text-xl text-scholastic-clay dark:text-slate-400 font-light">Narasi yang Anda cari belum disintesis dalam pangkalan data kami.</p>
+        <div id="no-data" class="hidden py-40 text-center animate-reveal">
+            <i class="fa-solid fa-box-open text-3xl text-slate-200 mb-4"></i>
+            <h3 class="text-lg font-bold text-scholastic-midnight dark:text-white uppercase tracking-widest">Ruang Hampa</h3>
+            <p class="text-xs text-scholastic-clay dark:text-slate-400 font-light">Narasi belum disintesis.</p>
         </div>
     </main>
 
     <!-- SISTEM MODAL -->
-    <div id="modal-overlay" class="fixed inset-0 bg-scholastic-midnight/90 backdrop-blur-2xl z-[300] hidden items-center justify-center p-10 transition-all duration-500 opacity-0">
+    <div id="modal-overlay" class="fixed inset-0 bg-scholastic-midnight/90 backdrop-blur-xl z-[300] hidden items-center justify-center p-4 transition-all duration-400 opacity-0">
         
         <!-- Auth Modal -->
-        <div id="modal-auth" class="hidden arch-card w-full max-w-sm rounded-[3.5rem] p-16 text-center border-white/10 shadow-5xl">
-            <h3 class="text-3xl font-black text-scholastic-midnight dark:text-white mb-4">Otoritas Kurator</h3>
-            <p class="text-sm text-slate-400 mb-12 italic">"Kekuasaan atas narasi menuntut kunci intelektual."</p>
-            <input type="password" id="auth-field" class="w-full bg-white/40 dark:bg-scholastic-midnight/50 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 text-center text-4xl tracking-[0.8em] mb-12 outline-none focus:ring-4 ring-scholastic-gold/30 dark:text-white" placeholder="••••">
-            <div class="flex gap-5">
-                <button onclick="closeModals()" class="flex-1 py-5 bg-slate-100 dark:bg-scholastic-midnight text-slate-500 rounded-3xl font-black text-[10px] uppercase transition-all">Batal</button>
-                <button onclick="doAuth()" class="flex-1 py-5 bg-scholastic-gold text-white rounded-3xl font-black text-[10px] uppercase shadow-xl hover:scale-105 active:scale-95 transition-all">Masuk</button>
+        <div id="modal-auth" class="hidden arch-card w-full max-w-xs rounded-3xl p-10 text-center border-white/10 shadow-2xl">
+            <h3 class="text-xl font-black text-scholastic-midnight dark:text-white mb-6 uppercase tracking-tighter">Otoritas Kurator</h3>
+            <input type="password" id="auth-field" class="w-full bg-slate-50 dark:bg-scholastic-midnight/50 border border-slate-200 dark:border-slate-800 rounded-xl p-4 text-center text-3xl tracking-[0.5em] mb-6 outline-none focus:ring-2 ring-scholastic-gold/30 dark:text-white" placeholder="••••">
+            <div class="flex flex-col gap-2">
+                <button onclick="doAuth()" class="w-full py-4 bg-scholastic-gold text-white rounded-xl font-black text-[10px] uppercase shadow-lg hover:scale-105 transition-all">Verifikasi</button>
+                <button onclick="closeModals()" class="w-full py-3 text-slate-400 text-[10px] font-bold uppercase hover:text-scholastic-gold transition-all">Batal</button>
             </div>
         </div>
 
-        <!-- Editor Modal -->
-        <div id="modal-editor" class="hidden arch-card w-full max-w-4xl rounded-[4rem] p-16 relative overflow-y-auto max-h-[85vh] border-white/10 shadow-5xl">
-            <div class="flex justify-between items-start mb-14">
+        <!-- Editor Modal - Compact and Scannable -->
+        <div id="modal-editor" class="hidden arch-card w-full max-w-xl rounded-[2.5rem] p-8 relative overflow-y-auto max-h-[90vh] border-white/10 shadow-2xl">
+            <div class="flex justify-between items-center mb-6 border-b border-slate-50 dark:border-slate-800 pb-5">
                 <div>
-                    <h3 id="form-header" class="text-5xl font-serif font-black text-scholastic-midnight dark:text-white tracking-tighter">Editor Narasi</h3>
-                    <p class="text-[10px] text-scholastic-gold mt-3 uppercase tracking-[0.5em] font-black italic">Cloud Synthesis Active</p>
+                    <h3 id="form-header" class="text-2xl font-serif font-black text-scholastic-midnight dark:text-white">Editor Narasi</h3>
+                    <p class="text-[8px] text-scholastic-gold uppercase tracking-[0.4em] font-black mt-1">www.sosiologi.eu.org</p>
                 </div>
-                <button onclick="closeModals()" class="w-14 h-14 flex items-center justify-center rounded-3xl bg-slate-50 dark:bg-onyx-800 text-slate-400 hover:text-scholastic-crimson transition-all shadow-sm"><i class="fa-solid fa-xmark text-3xl"></i></button>
+                <button onclick="closeModals()" class="w-9 h-9 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-onyx-800 text-slate-400 hover:text-scholastic-crimson transition-all"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <form id="main-form" class="space-y-12">
+            <form id="main-form" class="space-y-5">
                 <input type="hidden" id="item-id">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                    <div class="flex flex-col gap-3">
-                        <label class="text-[11px] font-black text-scholastic-clay uppercase tracking-[0.3em] ml-4">Kelas</label>
-                        <select id="i-class" class="w-full bg-slate-50 dark:bg-scholastic-midnight rounded-[2rem] p-6 text-sm border border-slate-200 dark:border-slate-800 focus:ring-4 ring-scholastic-gold/20 outline-none transition-all">
-                            <option value="X">Kelas X (Fondasi)</option><option value="XI">Kelas XI (Struktur)</option><option value="XII">Kelas XII (Perubahan)</option>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-2">Tingkat Kelas</label>
+                        <select id="i-class" class="w-full bg-slate-50 dark:bg-scholastic-midnight rounded-xl p-3 text-xs border border-slate-200 dark:border-slate-800 focus:ring-2 ring-scholastic-gold/20 outline-none">
+                            <option value="X">Kelas X</option><option value="XI">Kelas XI</option><option value="XII">Kelas XII</option>
                         </select>
                     </div>
-                    <div class="flex flex-col gap-3">
-                        <label class="text-[11px] font-black text-scholastic-clay uppercase tracking-[0.3em] ml-4">Kategori</label>
-                        <select id="i-kategori" class="w-full bg-slate-50 dark:bg-scholastic-midnight rounded-[2rem] p-6 text-sm border border-slate-200 dark:border-slate-800 focus:ring-4 ring-scholastic-gold/20 outline-none transition-all">
-                            <option value="materi">Materi Inti</option><option value="literasi">Literasi Kritis</option><option value="pengayaan">Pengayaan</option><option value="serba serbi">Serba-serbi</option>
+                    <div class="space-y-1.5">
+                        <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-2">Kategori Konten</label>
+                        <select id="i-kategori" class="w-full bg-slate-50 dark:bg-scholastic-midnight rounded-xl p-3 text-xs border border-slate-200 dark:border-slate-800 focus:ring-2 ring-scholastic-gold/20 outline-none">
+                            <option value="materi">Materi Inti</option><option value="literasi">Literasi</option><option value="pengayaan">Pengayaan</option><option value="serba serbi">Serba-serbi</option>
                         </select>
                     </div>
                 </div>
-                <div class="flex flex-col gap-3">
-                    <label class="text-[11px] font-black text-scholastic-clay uppercase tracking-[0.3em] ml-4">Judul</label>
-                    <input type="text" id="i-title" required class="w-full bg-slate-50 dark:bg-scholastic-midnight rounded-[2.5rem] p-6 text-sm border border-slate-200 dark:border-slate-800 focus:ring-4 ring-scholastic-gold/20 outline-none shadow-inner transition-all">
+                <div class="space-y-1.5">
+                    <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-2">Judul Materi</label>
+                    <input type="text" id="i-title" required class="w-full bg-slate-50 dark:bg-scholastic-midnight rounded-xl p-3 text-xs border border-slate-200 dark:border-slate-800 focus:ring-2 ring-scholastic-gold/20 outline-none">
                 </div>
-                <div class="flex flex-col gap-3">
-                    <label class="text-[11px] font-black text-scholastic-clay uppercase tracking-[0.3em] ml-4">Abstraksi Deskripsi</label>
-                    <textarea id="i-desc" rows="3" class="w-full bg-slate-50 dark:bg-scholastic-midnight rounded-[2.5rem] p-8 text-sm border border-slate-200 dark:border-slate-800 focus:ring-4 ring-scholastic-gold/20 outline-none shadow-inner transition-all"></textarea>
+                <div class="space-y-1.5">
+                    <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-2">Abstraksi (Deskripsi Singkat)</label>
+                    <textarea id="i-desc" rows="2" class="w-full bg-slate-50 dark:bg-scholastic-midnight rounded-xl p-3 text-xs border border-slate-200 dark:border-slate-800 focus:ring-2 ring-scholastic-gold/20 outline-none"></textarea>
                 </div>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                    <div class="flex flex-col gap-3">
-                        <label class="text-[11px] font-black text-scholastic-clay uppercase tracking-[0.3em] ml-4">Status Visibilitas</label>
-                        <select id="i-status" class="w-full bg-slate-50 dark:bg-scholastic-midnight rounded-[2rem] p-6 text-sm border border-slate-200 dark:border-slate-800 focus:ring-4 ring-scholastic-gold/20 outline-none transition-all">
-                            <option value="published">PUBLISHED (AKTIF)</option><option value="draft">DRAFT (TERSEMBUNYI)</option>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-2">Status Publikasi</label>
+                        <select id="i-status" class="w-full bg-slate-50 dark:bg-scholastic-midnight rounded-xl p-3 text-xs border border-slate-200 dark:border-slate-800 focus:ring-2 ring-scholastic-gold/20 outline-none">
+                            <option value="published">PUBLISHED</option><option value="draft">DRAFT</option>
                         </select>
                     </div>
-                    <div class="flex flex-col gap-3">
-                        <label class="text-[11px] font-black text-scholastic-clay uppercase tracking-[0.3em] ml-4">Tautan Dokumen (Google Drive)</label>
-                        <input type="url" id="i-link" required class="w-full bg-slate-50 dark:bg-scholastic-midnight rounded-[2.5rem] p-6 text-sm border border-slate-200 dark:border-slate-800 focus:ring-4 ring-scholastic-gold/20 outline-none shadow-inner transition-all">
+                    <div class="space-y-1.5">
+                        <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-2">Tautan Digital</label>
+                        <input type="url" id="i-link" required class="w-full bg-slate-50 dark:bg-scholastic-midnight rounded-xl p-3 text-xs border border-slate-200 dark:border-slate-800 focus:ring-2 ring-scholastic-gold/20 outline-none">
                     </div>
                 </div>
-                <!-- Metadata KD -->
-                <div class="flex flex-col gap-3">
-                    <label class="text-[11px] font-black text-scholastic-clay uppercase tracking-[0.3em] ml-4">Kode KD / Indeks</label>
-                    <input type="text" id="i-kd" class="w-full bg-slate-50 dark:bg-scholastic-midnight rounded-[2.5rem] p-6 text-sm border border-slate-200 dark:border-slate-800 focus:ring-4 ring-scholastic-gold/20 outline-none shadow-inner transition-all" placeholder="3.1">
-                </div>
-                <button type="submit" id="submit-btn" class="w-full py-8 bg-scholastic-midnight dark:bg-scholastic-gold text-white dark:text-scholastic-midnight rounded-[3rem] font-black text-[12px] uppercase tracking-[0.5em] shadow-5xl hover:scale-[1.02] active:scale-[0.98] transition-all">SINKRONKAN DIALEKTIKA</button>
+                <input type="hidden" id="i-kd" value="INDX">
+                <button type="submit" id="submit-btn" class="w-full py-4 bg-scholastic-midnight dark:bg-scholastic-gold text-white dark:text-scholastic-midnight rounded-xl font-black text-[10px] uppercase tracking-[0.4em] shadow-xl hover:scale-[1.01] active:scale-95 transition-all">SINKRONKAN DIALEKTIKA</button>
             </form>
         </div>
+    </div>
+
+    <!-- Floating Branding Initial -->
+    <div class="fixed bottom-6 left-6 z-[100] hidden md:block">
+        <span class="text-[8px] font-black uppercase tracking-[0.6em] text-slate-300 dark:text-slate-700 hover:text-scholastic-gold transition-colors cursor-default">www.sosiologi.eu.org</span>
     </div>
 
     <div id="toast-box"></div>
 
     <script type="module">
-        // PENTING: Ganti URL di bawah ini dengan URL Web App Apps Script Anda yang baru di-deploy!
-        const SPREADSHEET_API_URL = "https://script.google.com/macros/s/AKfycbyZgIJU1-jSKTIqZYYlzTGHRNRNbAhp_i71FxqBjlxYxXRf2P0LGFWpLcbipsB7RQjIdg/exec";
+        // --- CORE LOGIC ---
+        const SPREADSHEET_API_URL = "https://script.google.com/macros/s/AKfycbwZyqGF1gOuLmIL4PUEX8wxhJlQNecoujmBDy0MC8m3nNLETi_IwyE99inXjiZk3LwlPA/exec";
 
         window.state = { modules: [], search: '', filter: 'all', isAdmin: false, loading: true };
 
@@ -254,9 +265,7 @@
         async function trackEngagement(id) {
             if (!id) return;
             fetch(SPREADSHEET_API_URL, { 
-                method: 'POST', 
-                mode: 'no-cors', 
-                headers: { 'Content-Type': 'application/json' },
+                method: 'POST', mode: 'no-cors', cache: 'no-cache',
                 body: JSON.stringify({ action: 'track_view', id: id }) 
             });
         }
@@ -264,10 +273,10 @@
         window.notify = (msg) => {
             const wrap = document.getElementById('toast-box');
             const t = document.createElement('div');
-            t.className = `px-10 py-6 arch-card rounded-3xl shadow-5xl mb-5 border-l-8 border-scholastic-gold animate-reveal`;
-            t.innerHTML = `<span class="text-xs font-black uppercase tracking-[0.2em]">${msg}</span>`;
+            t.className = `px-6 py-3 arch-card rounded-xl shadow-xl mb-3 border-l-4 border-scholastic-gold animate-reveal`;
+            t.innerHTML = `<span class="text-[9px] font-black uppercase tracking-widest">${msg}</span>`;
             wrap.appendChild(t);
-            setTimeout(() => { t.classList.add('opacity-0'); setTimeout(() => t.remove(), 600); }, 3500);
+            setTimeout(() => { t.classList.add('opacity-0'); setTimeout(() => t.remove(), 600); }, 3000);
         };
 
         window.toggleDarkMode = () => {
@@ -278,7 +287,7 @@
         window.openOtoritas = () => {
             if(state.isAdmin) {
                 state.isAdmin = false; document.getElementById('add-btn').classList.add('hidden');
-                notify("Akses Publik Aktif."); renderApp();
+                notify("Akses Publik."); renderApp();
             } else { showGlobalModal('modal-auth'); document.getElementById('auth-field').focus(); }
         };
 
@@ -286,11 +295,21 @@
             if(document.getElementById('auth-field').value === 'cornelcktc') {
                 state.isAdmin = true; document.getElementById('add-btn').classList.remove('hidden');
                 closeModals(); notify("Kurator Terverifikasi."); renderApp();
-            } else { notify("Verifikasi Ditolak."); }
+            } else { notify("Ditolak."); }
             document.getElementById('auth-field').value = '';
         };
 
-        window.applyFilter = (v) => { state.filter = v; renderApp(); };
+        window.applyFilter = (v) => { 
+            state.filter = v; 
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('active', 'bg-scholastic-midnight', 'dark:bg-scholastic-gold', 'text-white', 'dark:text-scholastic-midnight');
+                b.classList.add('hover:bg-slate-50', 'dark:hover:bg-slate-800', 'text-scholastic-clay');
+            });
+            const active = document.getElementById(`f-${v}`);
+            active.classList.add('active', 'bg-scholastic-midnight', 'dark:bg-scholastic-gold', 'text-white', 'dark:text-scholastic-midnight');
+            renderApp(); 
+        };
+        
         window.handleSearch = () => { state.search = document.getElementById('search-input').value.toLowerCase(); renderApp(); };
 
         const overlay = document.getElementById('modal-overlay');
@@ -309,7 +328,6 @@
                 document.getElementById('i-title').value = m.title;
                 document.getElementById('i-desc').value = m.desc;
                 document.getElementById('i-status').value = m.status;
-                document.getElementById('i-kd').value = m.kd || '';
                 document.getElementById('i-link').value = m.link;
             }
         };
@@ -318,8 +336,7 @@
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
             btn.disabled = true;
-            btn.innerText = "SINKRONISASI SEDANG BERLANGSUNG...";
-
+            btn.innerText = "SINKRONISASI...";
             const payload = {
                 action: 'upsert',
                 id: document.getElementById('item-id').value || "SOC-" + Date.now(),
@@ -332,68 +349,47 @@
                 link: document.getElementById('i-link').value,
                 time: 15
             };
-
             try {
-                // Menunggu proses POST selesai sebelum reload
-                await fetch(SPREADSHEET_API_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    cache: 'no-cache',
-                    body: JSON.stringify(payload)
-                });
-                
-                notify("Narasi Berhasil Disinkronkan.");
-                // Delay reload ditingkatkan untuk memastikan data mendarat di Apps Script
-                setTimeout(() => { location.reload(); }, 3500);
-            } catch (err) {
-                notify("Kegagalan Transmisi.");
-                btn.disabled = false;
-                btn.innerText = "SINKRONKAN DIALEKTIKA";
-            }
+                await fetch(SPREADSHEET_API_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+                notify("Tersimpan.");
+                setTimeout(() => location.reload(), 2000);
+            } catch (err) { notify("Gagal."); btn.disabled = false; btn.innerText = "SINKRONKAN DIALEKTIKA"; }
         };
 
         function renderApp() {
             const grid = document.getElementById('grid-content'); grid.innerHTML = '';
-            
             if (state.loading) {
-                for(let i=0; i<6; i++) grid.innerHTML += `<div class="arch-card rounded-[3.5rem] p-16 h-96 flex flex-col gap-10"><div class="w-24 h-6 shimmer rounded-xl"></div><div class="w-full h-10 shimmer rounded-2xl"></div><div class="w-2/3 h-6 shimmer rounded-lg"></div></div>`;
+                for(let i=0; i<12; i++) grid.innerHTML += `<div class="arch-card rounded-2xl p-5 h-48 flex flex-col gap-3"><div class="w-12 h-3 shimmer rounded-lg"></div><div class="w-full h-6 shimmer rounded-xl"></div><div class="w-2/3 h-3 shimmer rounded-lg"></div></div>`;
                 return;
             }
-
             const cloudIds = new Set(state.modules.map(m => m.id));
             const baseData = [...state.modules, ...INTERNAL_ARCHIVE.filter(m => !cloudIds.has(m.id))];
-
             const filtered = baseData.filter(m => {
                 if (!state.isAdmin && m.status !== 'published') return false;
                 const matchTab = state.filter === 'all' || m.class === state.filter;
                 const matchSearch = m.title.toLowerCase().includes(state.search) || m.desc.toLowerCase().includes(state.search);
                 return matchTab && matchSearch;
             });
-
             if (filtered.length === 0) document.getElementById('no-data').classList.remove('hidden');
             else document.getElementById('no-data').classList.add('hidden');
 
             filtered.forEach((m, i) => {
-                const id = m.id || m.title; const isPublished = m.status === 'published';
-                
+                const isPublished = m.status === 'published';
                 grid.innerHTML += `
-                    <div class="group arch-card rounded-[3.5rem] p-16 flex flex-col h-full ${!isPublished ? 'opacity-40 grayscale' : ''}" style="animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards ${i*0.05}s">
-                        <div class="flex justify-between items-center mb-14">
-                            <span class="px-8 py-3 bg-scholastic-midnight dark:bg-slate-900 text-[10px] font-black text-white rounded-2xl tracking-[0.3em] uppercase shadow-sm">KELAS ${m.class}</span>
-                            ${state.isAdmin ? `<button onclick="openEditor('${m.id}')" class="text-slate-400 hover:text-scholastic-gold transition-colors"><i class="fa-solid fa-marker text-xl"></i></button>` : `<i class="fa-solid fa-graduation-cap text-slate-200"></i>`}
+                    <div class="group arch-card rounded-2xl p-5 flex flex-col h-full ${!isPublished ? 'opacity-40 grayscale' : ''}" style="animation: reveal 0.4s ease-out forwards ${i*0.02}s">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="px-2 py-0.5 bg-scholastic-midnight dark:bg-slate-900 text-[7px] font-black text-white rounded tracking-widest uppercase">KLS ${m.class}</span>
+                            ${state.isAdmin ? `<button onclick="openEditor('${m.id}')" class="text-slate-400 hover:text-scholastic-gold transition-colors"><i class="fa-solid fa-marker text-[10px]"></i></button>` : `<i class="fa-solid fa-bookmark text-[8px] text-slate-200"></i>`}
                         </div>
-                        <div class="mb-10 flex items-center gap-4">
-                            <span class="px-5 py-2 bg-scholastic-gold/10 text-scholastic-gold text-[9px] font-black uppercase rounded-full shadow-sm tracking-[0.2em] border border-scholastic-gold/20">${m.kategori || 'Narasi'}</span>
-                            ${state.isAdmin && !isPublished ? '<span class="text-[9px] font-black text-scholastic-crimson uppercase tracking-widest bg-scholastic-crimson/10 px-4 py-2 rounded-full shadow-sm">DRAFT</span>' : ''}
-                            <span class="text-[12px] font-bold text-scholastic-clay dark:text-slate-400 uppercase opacity-60 ml-auto">${m.views || 0} <i class="fa-solid fa-bolt-lightning ml-2 text-[10px]"></i></span>
+                        <div class="mb-2 flex items-center gap-2">
+                            <span class="text-[7px] font-black text-scholastic-gold uppercase tracking-widest">${m.kategori || 'Narasi'}</span>
+                            ${state.isAdmin && !isPublished ? '<span class="text-[6px] font-black text-scholastic-crimson bg-scholastic-crimson/5 px-1.5 py-0.5 rounded-full uppercase">Draft</span>' : ''}
                         </div>
-                        <h3 class="font-serif font-black text-5xl text-scholastic-midnight dark:text-white mb-10 leading-[1.05] group-hover:text-scholastic-gold transition-colors duration-500 tracking-tighter tracking-tight tracking-tight">${m.title}</h3>
-                        <p class="text-xl text-scholastic-clay dark:text-slate-400 leading-relaxed line-clamp-4 mb-16 font-light italic opacity-90">"${m.desc}"</p>
-                        <div class="mt-auto pt-12 border-t border-slate-100 dark:border-slate-900 flex justify-between items-center">
-                            <span class="text-[14px] font-black text-slate-200 dark:text-slate-800 tracking-[0.4em] uppercase">${m.kd || 'INDX'}</span>
-                            <div class="flex gap-4">
-                                <a href="${m.link}" target="_blank" onclick="trackEngagement('${m.id}')" class="px-12 py-6 bg-scholastic-midnight dark:bg-scholastic-gold text-white dark:text-scholastic-midnight rounded-[3rem] text-[12px] font-black uppercase tracking-[0.4em] hover:scale-110 active:scale-95 transition-all shadow-5xl shadow-scholastic-gold/20">Akses</a>
-                            </div>
+                        <h3 class="font-serif font-black text-base text-scholastic-midnight dark:text-white mb-2 leading-tight group-hover:text-scholastic-gold transition-colors tracking-tight line-clamp-titles">${m.title}</h3>
+                        <p class="text-[10px] text-scholastic-clay dark:text-slate-400 leading-relaxed line-clamp-descs mb-4 font-light opacity-80 italic">"${m.desc}"</p>
+                        <div class="mt-auto flex justify-between items-center pt-3 border-t border-slate-50 dark:border-slate-900">
+                            <span class="text-[8px] font-black text-slate-300 tracking-widest">${m.kd || 'INDX'}</span>
+                            <a href="${m.link}" target="_blank" onclick="trackEngagement('${m.id}')" class="text-[8px] font-black uppercase tracking-[0.2em] px-4 py-2 bg-scholastic-midnight dark:bg-scholastic-gold text-white dark:text-scholastic-midnight rounded-lg hover:scale-105 active:scale-95 transition-all">Akses</a>
                         </div>
                     </div>`;
             });
