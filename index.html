@@ -227,7 +227,8 @@
     <div id="toast-box"></div>
 
     <script type="module">
-        const SPREADSHEET_API_URL = "https://script.google.com/macros/s/AKfycbwZyqGF1gOuLmIL4PUEX8wxhJlQNecoujmBDy0MC8m3nNLETi_IwyE99inXjiZk3LwlPA/exec";
+        // --- API URL GOOGLE APPS SCRIPT DIPERBARUI ---
+        const SPREADSHEET_API_URL = "https://script.google.com/macros/s/AKfycbyZgIJU1-jSKTIqZYYlzTGHRNRNbAhp_i71FxqBjlxYxXRf2P0LGFWpLcbipsB7RQjIdg/exec";
 
         window.state = { modules: [], search: '', filter: 'all', isAdmin: false, loading: true };
 
@@ -316,7 +317,6 @@
             form.reset();
             document.getElementById('item-id').value = id || '';
             if(id) {
-                // Mencari data di cloud atau internal
                 const m = state.modules.find(d => d.id == id) || INTERNAL_ARCHIVE.find(d => d.id === id);
                 if (m) {
                     document.getElementById('i-class').value = m.class || 'X';
@@ -350,7 +350,6 @@
             };
 
             try {
-                // Transmisi ke Google Apps Script
                 await fetch(SPREADSHEET_API_URL, { 
                     method: 'POST', 
                     mode: 'no-cors', 
@@ -360,7 +359,6 @@
                 
                 notify("Data berhasil dikirim ke pangkalan data.");
                 
-                // Memberikan waktu ekstra bagi Apps Script untuk memproses penulisan sebelum refresh
                 setTimeout(() => {
                     location.reload();
                 }, 4000); 
@@ -395,7 +393,7 @@
                 grid.innerHTML += `
                     <div class="group arch-card rounded p-4 flex flex-col h-full ${!isPublished ? 'opacity-40 grayscale' : ''}">
                         <div class="flex justify-between items-start mb-2">
-                            <span class="px-1.5 py-0.5 bg-stone-50 dark:bg-stone-800 text-[6px] font-black text-stone-500 rounded tracking-widest uppercase shadow-none">KLS ${m.class}</span>
+                            <span class="px-1.5 py-0.5 bg-stone-50 dark:bg-stone-800 text-[6px] font-black text-stone-400 rounded tracking-widest uppercase shadow-none">KLS ${m.class}</span>
                             ${state.isAdmin ? `<button onclick="openEditor('${m.id}')" class="text-stone-500 hover:text-scholastic-ink"><i class="fa-solid fa-marker text-[8px]"></i></button>` : `<i class="fa-solid fa-bookmark text-[7px] text-stone-100 dark:text-stone-800"></i>`}
                         </div>
                         <div class="mb-1">
