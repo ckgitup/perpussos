@@ -52,12 +52,10 @@
         .arch-card {
             background: #ffffff;
             border: 1px solid #e7e5e4;
-            /* Transisi diperhalus dengan kurva bezier yang lebih elegan */
-            transition: 
-                transform 0.4s cubic-bezier(0.2, 0, 0, 1), 
-                border-color 0.4s ease, 
-                box-shadow 0.4s ease,
-                background-color 0.4s ease;
+            transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1), 
+                        border-color 0.4s ease, 
+                        box-shadow 0.4s ease,
+                        background-color 0.4s ease;
             position: relative;
             z-index: 1;
         }
@@ -68,19 +66,16 @@
 
         /* Hover: Elevasi Subtil & Bayangan Berlapis */
         .arch-card:hover {
-            transform: translateY(-4px); /* Elevasi proporsional, tidak melayang jauh */
-            border-color: #57534e; /* Bergeser ke warna Lead yang lebih berwibawa */
-            /* Bayangan berlapis (layered shadow) untuk kesan kedalaman alami */
-            box-shadow: 
-                0 4px 6px -1px rgba(0, 0, 0, 0.05), 
-                0 10px 20px -5px rgba(0, 0, 0, 0.03);
-            background-color: #fdfdfd; /* Pergeseran warna latar yang sangat tipis */
+            transform: translateY(-5px);
+            border-color: #57534e;
+            box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.06);
+            background-color: #fdfdfd;
             z-index: 10;
         }
         .dark .arch-card:hover {
             border-color: #78716c;
             background-color: #1a1a19;
-            box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.4);
         }
 
         .shimmer {
@@ -92,7 +87,7 @@
         
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
-        /* Kontrol Rigiditas untuk Keseragaman Grid */
+        /* Rigid Constraints for Uniformity */
         .line-clamp-titles { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-weight: 700; line-height: 1.3; }
         .line-clamp-descs { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; opacity: 0.8; font-size: 0.85rem; line-height: 1.5; }
     </style>
@@ -321,31 +316,59 @@
             form.reset();
             document.getElementById('item-id').value = id || '';
             if(id) {
+                // Mencari data di cloud atau internal
                 const m = state.modules.find(d => d.id == id) || INTERNAL_ARCHIVE.find(d => d.id === id);
-                document.getElementById('i-class').value = m.class;
-                document.getElementById('i-kategori').value = m.kategori;
-                document.getElementById('i-title').value = m.title;
-                document.getElementById('i-desc').value = m.desc;
-                document.getElementById('i-status').value = m.status;
-                document.getElementById('i-link').value = m.link;
+                if (m) {
+                    document.getElementById('i-class').value = m.class || 'X';
+                    document.getElementById('i-kategori').value = m.kategori || 'materi';
+                    document.getElementById('i-title').value = m.title || '';
+                    document.getElementById('i-desc').value = m.desc || '';
+                    document.getElementById('i-status').value = m.status || 'published';
+                    document.getElementById('i-link').value = m.link || '';
+                }
             }
         };
 
         document.getElementById('main-form').onsubmit = async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
-            btn.disabled = true; btn.innerText = "SINKRONISASI...";
+            btn.disabled = true; 
+            btn.innerText = "SINKRONISASI SEDANG BERLANGSUNG...";
+
             const payload = {
-                action: 'upsert', id: document.getElementById('item-id').value || "SOC-" + Date.now(),
-                class: document.getElementById('i-class').value, kategori: document.getElementById('i-kategori').value,
-                title: document.getElementById('i-title').value, desc: document.getElementById('i-desc').value,
-                status: document.getElementById('i-status').value, kd: document.getElementById('i-kd').value,
-                link: document.getElementById('i-link').value, time: 15
+                action: 'upsert',
+                id: document.getElementById('item-id').value || "SOC-" + Date.now(),
+                class: document.getElementById('i-class').value,
+                kategori: document.getElementById('i-kategori').value,
+                title: document.getElementById('i-title').value,
+                desc: document.getElementById('i-desc').value,
+                status: document.getElementById('i-status').value,
+                kd: document.getElementById('i-kd').value,
+                link: document.getElementById('i-link').value,
+                context: "Curated",
+                time: 15
             };
+
             try {
-                await fetch(SPREADSHEET_API_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-                notify("Tersimpan."); setTimeout(() => location.reload(), 2000);
-            } catch (err) { notify("Gagal."); btn.disabled = false; btn.innerText = "SINKRONKAN DATA"; }
+                // Transmisi ke Google Apps Script
+                await fetch(SPREADSHEET_API_URL, { 
+                    method: 'POST', 
+                    mode: 'no-cors', 
+                    cache: 'no-cache',
+                    body: JSON.stringify(payload) 
+                });
+                
+                notify("Data berhasil dikirim ke pangkalan data.");
+                
+                // Memberikan waktu ekstra bagi Apps Script untuk memproses penulisan sebelum refresh
+                setTimeout(() => {
+                    location.reload();
+                }, 4000); 
+            } catch (err) {
+                notify("Gagal menyambung ke server.");
+                btn.disabled = false;
+                btn.innerText = "Sinkronkan Data";
+            }
         };
 
         function renderApp() {
@@ -356,12 +379,14 @@
             }
             const cloudIds = new Set(state.modules.map(m => m.id));
             const baseData = [...state.modules, ...INTERNAL_ARCHIVE.filter(m => !cloudIds.has(m.id))];
+            
             const filtered = baseData.filter(m => {
                 if (!state.isAdmin && m.status !== 'published') return false;
                 const matchTab = state.filter === 'all' || m.class === state.filter;
                 const matchSearch = m.title.toLowerCase().includes(state.search) || m.desc.toLowerCase().includes(state.search);
                 return matchTab && matchSearch;
             });
+
             if (filtered.length === 0) document.getElementById('no-data').classList.remove('hidden');
             else document.getElementById('no-data').classList.add('hidden');
 
@@ -371,7 +396,7 @@
                     <div class="group arch-card rounded p-4 flex flex-col h-full ${!isPublished ? 'opacity-40 grayscale' : ''}">
                         <div class="flex justify-between items-start mb-2">
                             <span class="px-1.5 py-0.5 bg-stone-50 dark:bg-stone-800 text-[6px] font-black text-stone-500 rounded tracking-widest uppercase shadow-none">KLS ${m.class}</span>
-                            ${state.isAdmin ? `<button onclick="openEditor('${m.id}')" class="text-stone-500 hover:text-scholastic-ink transition-colors"><i class="fa-solid fa-marker text-[8px]"></i></button>` : `<i class="fa-solid fa-bookmark text-[7px] text-stone-100 dark:text-stone-800"></i>`}
+                            ${state.isAdmin ? `<button onclick="openEditor('${m.id}')" class="text-stone-500 hover:text-scholastic-ink"><i class="fa-solid fa-marker text-[8px]"></i></button>` : `<i class="fa-solid fa-bookmark text-[7px] text-stone-100 dark:text-stone-800"></i>`}
                         </div>
                         <div class="mb-1">
                             <span class="text-[7px] font-bold text-scholastic-ink dark:text-stone-400 uppercase tracking-widest">${m.kategori || 'Narasi'}</span>
@@ -380,7 +405,7 @@
                         <h3 class="font-serif font-black text-sm text-scholastic-ink dark:text-white mb-2 leading-snug tracking-tight line-clamp-titles">${m.title}</h3>
                         <p class="text-[9px] text-stone-500 dark:text-stone-500 leading-relaxed line-clamp-descs mb-4">"${m.desc}"</p>
                         <div class="mt-auto flex justify-between items-center pt-2 border-t border-stone-50 dark:border-stone-800">
-                            <span class="text-[8px] font-black text-stone-500 dark:text-stone-700 tracking-widest uppercase">${m.kd || 'INDX'}</span>
+                            <span class="text-[8px] font-black text-stone-400 dark:text-stone-700 tracking-widest uppercase">${m.kd || 'INDX'}</span>
                             <a href="${m.link}" target="_blank" onclick="trackEngagement('${m.id}')" class="text-[7px] font-bold uppercase tracking-[0.2em] px-3 py-1.5 bg-stone-50 dark:bg-stone-800 text-scholastic-ink dark:text-stone-300 rounded hover:bg-scholastic-ink hover:text-white transition-all">Akses</a>
                         </div>
                     </div>`;
